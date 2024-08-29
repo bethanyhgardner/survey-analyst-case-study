@@ -24,14 +24,14 @@ theme_blue <- "#5692e4"  # revealjs theme blue
 
 ## Why this project?
 
-::: {.incremental}
+::: incremental
 -   Using one of my dissertation experiments as a case study (published as [GitHub Repository](https://github.com/bethanyhgardner/dissertation/) and [Quarto Book](https://bethanyhgardner.github.io/dissertation/))
 -   I've chosen to talk about this one because it involves the most data preprocessing/management steps, and I was in charge of all of them
 :::
 
 ## About the experiment
 
-::: {.incremental}
+::: incremental
 -   Studying language learning and processing mechanisms for singular *they*
 -   Including pronouns on nametags and in introductions are common recommendations for creating a more gender-inclusive environment. We know it can affect people's perception of an environment, but does it also affect people's language *use*?
 -   Participants:
@@ -44,7 +44,7 @@ theme_blue <- "#5692e4"  # revealjs theme blue
 
 ## About the data
 
-::: {.incremental}
+::: incremental
 -   Audio data transcribed and annotated for which pronouns were produced & survey data for each participant
 -   Do the nametag and introduction conditions affect accuracy producing singular *they*?
 -   If production accuracy is internally reliable, is it predicted by demographics, language attitude, or language experience measures?
@@ -304,7 +304,7 @@ exp3_pw_results <- bind_rows(
 
 ## Power analysis
 
-::: {.incremental}
+::: incremental
 -   We determined that 156 participants, each completing 30 trials, would have 0.93 \[0.91, 0.94\] power at α = .05 to detect the two-way interactions (Pronoun × Nametag/ Introduction).
 -   Note that in cognitive psychology, the goal is have enough statistical power to detect differences between experimental conditions, not necessarily to be able to generalize differences between groups of participants to the entire population.
 -   We can get a decently representative sample of respondents from Prolific, but didn't do population weights.
@@ -347,7 +347,7 @@ ggplot() +
 
 ## Audio data (AWS S3)
 
-::: {.incremental}
+::: incremental
 -   PCIbex, our experiment platform, sends the audio data to an AWS S3 bucket
 -   It's most efficient to just download the data from S3 once and run the rest of the analyses locally, instead of querying it from S3 every time
 -   Bash script to download new data; check that an audio file for each trial for each participant exists as expected; then unzip, convert, and sort audio files
@@ -398,7 +398,7 @@ done
 
 ## Transcribe using *whisper*
 
-::: {.incremental}
+::: incremental
 -   First pass for transcription using the *whisper* model [@radford]
 -   Pros: fairly quick, runs locally and does not get copy of identifiable data
 -   Cons: does not include speech errors and disfluencies
@@ -1378,6 +1378,66 @@ exp3_load_data_subj <- function() {
 
   return(d)
 }
+```
+
+## Estimate internal reliability
+
+::: incremental
+-   Before we can/should use the survey questions as predictors of production accuracy, we need to establish the internal reliability [@hedge2017]
+-   Used a Bayesian mixed-effects model approach comparing the by-participant slopes in each half of the data [@staub2021]
+-   Estimates of the relative accuracy of they/them compared to he/him + she/her for each participant were strongly correlated between halves of the data, *r* = 0.97 \[0.90, 1.00\]
+:::
+
+## Estimate internal reliability
+
+Fit using the {brms} package [@bürkner2017] in R:
+
+```{r}
+#| label: reliability-code
+#| eval: false
+#| echo: true
+
+# split into haves and create Pronoun effect vars for each half
+exp3_d_reliability <- exp3_load_data_acc() |>
+  select(ParticipantID, Pronoun, Accuracy) |>
+  arrange(ParticipantID, Pronoun) |>  # sort by pronoun within participant
+  mutate(Obs_Num = seq(1, length(Pronoun)))  |>
+  mutate(Obs_Half = case_when(  # count odd and even trials
+    is_even(Obs_Num) ~ "even",
+    is_odd(Obs_Num)  ~ "odd"
+  )) |>
+  mutate(
+    Pronoun_Even = case_when(  # effect of pronoun just in even trials
+      Obs_Half == "even" & Pronoun == "T_HS" ~ -0.66,
+      Obs_Half == "even" & Pronoun != "T_HS" ~ +0.33,
+      Obs_Half == "odd" ~ 0
+    ),
+    Pronoun_Odd = case_when(  # effect of pronoun just in odd trials
+      Obs_Half == "odd" & Pronoun == "T_HS" ~ -0.66,
+      Obs_Half == "odd" & Pronoun != "T_HS" ~ +0.33,
+      Obs_Half == "even" ~ 0
+  ))
+
+# run Bayesian model
+exp3_m_reliability <- brm(
+  formula = Accuracy ~ Pronoun_Even + Pronoun_Odd +  # fixed effects for halves
+    (1 + Pronoun_Even + Pronoun_Odd | ParticipantID),  # random slopes by subj
+  data = exp3_d_reliability,
+  family = bernoulli(),  # keep default priors
+  seed = 4, cores = 4,
+  chains = 4, iter = 4000,
+  file = "r_data/exp3_reliability"  # won't rerun because results are copied in
+)
+exp3_m_reliability
+
+# tidy results
+exp3_r_reliability <- exp3_m_reliability |>
+  tidy() |>
+  filter(str_detect(term, "Even") & str_detect(term, "Odd")) |>
+  select(estimate, std.error, conf.low, conf.high) |>
+  mutate(across(everything(), ~format(., digits = 2, nsmall = 2)))
+
+exp3_r_reliability
 ```
 
 ## References
