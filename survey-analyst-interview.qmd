@@ -303,3 +303,88 @@ exp3_pw_results <- bind_rows(
 -   We determined that 156 participants, each completing 30 trials, would have 0.93 [0.91, 0.94] power at α = .05 to detect the two-way interactions (Pronoun &times; Nametag/ Introduction).
 -   Note that in cognitive psychology, the goal is have enough statistical power to detect differences between experimental conditions, not necessarily to be able to generalize differences between groups of participants to the entire population.
 -   We can get a decently representative sample of respondents from Prolific, but didn't do population weights.
+
+## Pipeline overview
+
+```{r}
+#| label: pipeline-plot-2
+#| fig-width: 10
+
+# highlight first section
+ggplot() +
+  geom_rect(
+    data = pipeline_nodes |>
+      mutate(group = case_when(
+        str_starts(label, "Audio") ~ "highlight",
+        str_starts(label, "Transcribe") ~ "highlight",
+        str_starts(label, "Check t") ~ "highlight",
+        .default = "fade"
+      )),
+    aes(xmin = xmin, ymin = ymin, xmax = xmax, ymax = ymax, fill = group),
+    alpha = 0.4
+  ) +
+  geom_text(
+    data = pipeline_nodes,
+    aes(x = x, y = y, label = str_wrap(label, 10)),
+    size = 4.25
+  ) +
+  geom_path(
+    data = pipeline_edges,
+    aes(x = x, y = y, group = id),
+    linewidth = 1,
+    arrow = arrow(length = unit(0.02, "snpc"), type = "closed")
+  ) +
+  scale_fill_manual(values = c("grey75", theme_blue)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  theme_void() +
+  guides(fill = guide_none())
+```
+
+## Audio data (AWS S3)
+
+-   PCIbex, our experiment platform, sends the audio data to an AWS S3 bucket
+-   It's most efficient to just download the data from S3 once and run the rest of the analyses locally, instead of querying it from S3 every time
+-   Bash script to download new data; check that an audio file for each trial for each participant exists as expected; unzip, convert, and sort audio files
+
+## Audio data (AWS S3)
+
+```{bash}
+#| label: bash-script
+#| eval: false
+#| echo: true
+
+# Options:
+#   s   sync data from AWS
+#   p   check participant list
+#   z   unzip and sort audio files
+#   c   run tests on PCIbex output and audio file names
+#   t   transcribe
+
+
+while getopts "spzct" option; do
+  case $option in
+    s)  # Sync audio data from S3
+        echo "Getting data from AWS"
+        cd ../data/s3/
+        aws s3 sync s3://they3 .
+        cd ../../preprocessing/
+        ;;
+    p)  # Get list of participants from PCIbex data to update participant list
+        echo "Checking audio data to see what needs to be added to the participant list"
+        Rscript participant_list.R
+        ;;
+    z)  # Unzip the audio data and convert it to WAV files in dirs for each participant
+        echo "Unzipping, converting, and sorting the audio files"
+        python s3_to_wav.py
+        ;;
+    c)  # Check output
+        echo "Checking the audio file names against the PCIbex data"
+        Rscript check_output.R
+        ;;
+    t)  # Transcribe
+        echo "Transcribing"
+        python transcribe.py
+        ;;
+  esac
+done
+```
