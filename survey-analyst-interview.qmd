@@ -1228,4 +1228,141 @@ read.csv("example_data/participant_covariates.csv") |>
   kable_styling()
 ```
 
+## Pipeline overview
+
+```{r}
+#| label: pipeline-plot-4
+#| fig-width: 10
+
+# highlight third section
+ggplot() +
+  geom_rect(
+    data = pipeline_nodes |>
+      mutate(group = case_when(
+        str_starts(label, "Merge") ~ "highlight",
+        str_starts(label, "Check i") ~ "highlight",
+        str_starts(label, "Multilevel") ~ "highlight",
+        .default = "fade"
+      )),
+    aes(xmin = xmin, ymin = ymin, xmax = xmax, ymax = ymax, fill = group)
+  ) +
+  geom_text(
+    data = pipeline_nodes,
+    aes(x = x, y = y, label = str_wrap(label, 10)),
+    size = 4.25
+  ) +
+  geom_path(
+    data = pipeline_edges,
+    aes(x = x, y = y, group = id),
+    linewidth = 1,
+    arrow = arrow(length = unit(0.02, "snpc"), type = "closed")
+  ) +
+  scale_fill_manual(values = c("grey75", theme_blue)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  theme_void() +
+  guides(fill = guide_none())
+```
+
+## Merge data
+
+-   It's easy to merge the participant-level survey data with the trial-level pronoun data by joining in the participant ID
+-   For bigger projects, I write custom functions to load/set up data to ensure that the output is always identical
+
+```{r}
+#| label: load-merge-data
+#| eval: false
+#| echo: true
+
+# Loads accuracy data, sets up contrast coding and scaling----
+exp3_load_data_acc <- function() {
+  library(dplyr)
+  library(forcats)
+  library(scales)
+
+  d <- read.csv("data/exp3_pronouns.csv", stringsAsFactors = TRUE) |>
+    select(ParticipantID, Nametag, Intro, Pronoun_Pair, T_ID, Accuracy)
+
+  # Remove trials with no pronouns
+  d <- d |> filter(!is.na(Accuracy))
+
+  # Mean-center effects code Nametag and Intro
+  d$Nametag <- factor(d$Nametag, labels = c("-Nametag", "+Nametag"))
+  contrasts(d$Nametag) <- cbind(c(-.5, .5))
+
+  d$Intro <- factor(d$Intro, labels = c("-Intro", "+Intro"))
+  contrasts(d$Intro) <- cbind(c(-.5, .5))
+
+  # Orthogonal Helmert contrast codes for Pronoun Pair
+  d <- d |> rename("Pronoun" = "Pronoun_Pair")
+  d$Pronoun <- d$Pronoun |>
+    fct_relevel("T_HS", after = 0) |>
+    fct_relevel("HS_T", after = 1)
+  contrasts(d$Pronoun) <- cbind(
+    "Target" = c(-.66, +.33, +.33),
+    "Dist"     = c(0,    -.50, +.50)
+  )
+
+  # Add dummy-coded factor for They vs He/She
+  d <- d |> mutate(Pronoun_They0 = ifelse(Pronoun == "T_HS", 0, 1))
+
+  # Dummy code Nametag and Intro
+  d <- d |> mutate(
+    Nametag_Yes0 = ifelse(Nametag == "+Nametag", 0, 1),
+    Nametag_No0  = ifelse(Nametag == "-Nametag", 0, 1),
+    Intro_Yes0   = ifelse(Intro   == "+Intro", 0, 1),
+    Intro_No0    = ifelse(Intro   == "-Intro", 0, 1)
+  )
+
+  # Scale character (1-18)
+  d <- d |> mutate(.keep = c("unused"), Character = rescale(T_ID, c(-0.5, 0.5)))
+
+  # Subset and order
+  d <- d |> select(
+    ParticipantID, Nametag, Nametag_Yes0, Nametag_No0,
+    Intro, Intro_Yes0, Intro_No0, Pronoun, Pronoun_They0, Character, Accuracy
+  )
+
+  return(d)
+}
+
+# Adds participant covariates to accuracy data, mean-centers + rescales them----
+exp3_load_data_subj <- function() {
+  # Join participant covariates to accuracy df
+  d <- left_join(
+      exp3_load_data_acc(),
+      read.csv("data/exp3_participant-covariates.csv", stringsAsFactors = TRUE),
+      by = "ParticipantID"
+    ) |>
+    rename("Familiarity" = "UseThey", "Rating" = "Rating_Name")
+
+  # Remove participants with no pronouns (1) or no survey data (3)
+  d <- d |> filter(!is.na(Age))
+  d$ParticipantID <- droplevels(d$ParticipantID)
+
+  # Scale THEN mean-center (on accuracy df)
+  d <- d |> mutate(
+    Age_C = scale(Age / 80, center = TRUE, scale = FALSE),
+    Familiarity_C = scale(Familiarity / 2, center = TRUE, scale = FALSE),
+    GenderBeliefs_C = scale(GenderBeliefs / 60, center = TRUE, scale = FALSE),
+    LGBTQ_C = LGBQ - 0.50,
+    Rating_C = scale(Rating / 6, center = TRUE, scale = FALSE),
+    Sharing_C = scale(Sharing / 20, center = TRUE, scale = FALSE)
+  )
+
+  # Effects-code LGBTQ
+  d <- d |> mutate(LGBTQ_Fct = as.factor(LGBTQ_C))
+  contrasts(d$LGBTQ_Fct) <- cbind(c(-0.5, +0.5))
+
+  # Subset and order
+  d <- d |> select(
+    ParticipantID, Nametag, Intro, Pronoun, Character, Accuracy,
+    Age, Age_C, Familiarity, Familiarity_C,
+    GenderBeliefs, GenderBeliefs_C, LGBTQ_C, LGBTQ_Fct,
+    Rating, Rating_C, Sharing, Sharing_C
+  )
+
+  return(d)
+}
+```
+
 ## References
