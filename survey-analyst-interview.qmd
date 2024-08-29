@@ -301,7 +301,7 @@ exp3_pw_results <- bind_rows(
 
 ## Sample size determination
 
--   We determined that 156 participants, each completing 30 trials, would have 0.93 [0.91, 0.94] power at α = .05 to detect the two-way interactions (Pronoun &times; Nametag/ Introduction).
+-   We determined that 156 participants, each completing 30 trials, would have 0.93 \[0.91, 0.94\] power at α = .05 to detect the two-way interactions (Pronoun × Nametag/ Introduction).
 -   Note that in cognitive psychology, the goal is have enough statistical power to detect differences between experimental conditions, not necessarily to be able to generalize differences between groups of participants to the entire population.
 -   We can get a decently representative sample of respondents from Prolific, but didn't do population weights.
 
@@ -389,4 +389,106 @@ while getopts "spzct" option; do
   esac
 done
 ```
+
+## Transcribe using *whisper*
+
 -   First pass for transcription using the *whisper* model [@radford]
+-   Pros: fairly quick, runs locally and does not get copy of identifiable data
+-   Cons: does not include speech errors and disfluencies
+
+## Transcribe using *whisper*
+
+```{python}
+#| label: whisper
+#| python.reticulate: false
+#| eval: false
+#| echo: true
+
+import os
+import whisper
+import pandas as pd
+from pathlib import Path
+
+
+# ---- Helper functions ----- #
+def make_transcription_df():
+    """Set up df for transcription data.
+
+    Returns:
+        df: columns for `participant_id`, `prolific_id`, `trial_id`, indexed by
+            `file_path`
+    """    
+    transcriptions = []
+    participant_dirs = [
+        p for p in audio_dir.iterdir()
+        if not p.match("*temp*") and not p.match("*incomplete*")
+    ]
+
+    for p in participant_dirs:
+        audio_list = [a.stem for a in p.glob('*.wav')]
+        trials = [get_trial_info(p.name, a) for a in audio_list]
+        df = pd.DataFrame(
+            trials,
+            columns=['file_path', 'participant_id', 'prolific_id', 'trial_id'],
+        )
+        df = df.set_index('file_path').sort_values(by='trial_id')
+        transcriptions.append(df)
+    return transcriptions
+
+
+def get_trial_info(p_dir, file_name):
+    """Get trial info from the name of the audio file.
+
+    Args:
+        p_dir (str): dir for participant data
+        file_name (str): audio file within participant's data dir 
+
+    Returns:
+        list: .wav file name (Path), participant ID (str), prolific ID (str),
+            and trial ID (str)
+    """    
+    participant_id, prolific_id = p_dir.split('_')
+    trial_id = file_name.removeprefix(prolific_id + '_').removesuffix('.wav')
+    return [
+        audio_dir / p_dir / f"{file_name}.wav",
+        participant_id, prolific_id, trial_id
+    ]
+
+
+def run_whisper_on_participant(df, model):
+    """Use whisper to transcribe a trial.
+
+    Args:
+        df (df): structure for transcription data from `make_transcription_df()`,
+            which has `participant_id` as the first column and is indexed by the
+            path to the audio file
+        model (whisper model): whisper model loaded (using small English-only)
+    """    
+    participant_id = df.iloc[0, 0]
+    file_path = text_dir / f"{participant_id}_whisper.csv"
+    if not os.path.exists(file_path):
+        print(participant_id)
+        df['text'] = df.index.map(lambda t: whisper.transcribe(model, str(t))['text'])
+        print(df['text'])
+        df.to_csv(os.path.join(file_path))
+     
+
+# ---- Main function ----- #
+def transcribe_trials():
+    """Main function to transcribe .wav files using whisper."""    
+    transcriptions = make_transcription_df()
+    model = whisper.load_model('medium.en')
+    for p in transcriptions:
+        run_whisper_on_participant(p, model)
+        
+    return transcriptions
+
+
+# ---- Run ----- #
+audio_dir = Path('..') / 'data' / 'exp2_audio'
+text_dir = Path('..') / 'data' / 'exp2_transcription'
+
+transcribe_trials()
+```
+
+## References
