@@ -8,6 +8,7 @@ format:
     footer: github.com/bethanyhgardner/survey-analyst-case-study
     incremental: true
     slide-number: true
+    smaller: true
     theme: white
 bibliography: references.bib
 ---
@@ -17,7 +18,7 @@ bibliography: references.bib
 
 library(tidyverse)  # general data wrangling and plots
 library(igraph)  # calculate flowchart positions
-library(RColorBrewer)  # color scheme
+library(kableExtra)  # tables
 
 theme_blue <- "#5692e4"  # revealjs theme blue
 ```
@@ -30,16 +31,14 @@ theme_blue <- "#5692e4"  # revealjs theme blue
 ## About the experiment
 
 -   Studying language learning and processing mechanisms for singular *they*
--   Including pronouns on nametags and in introductions are common recommendations for creating a more gender-inclusive environment. We know it can affect people's perception of an environment, but does it also affect people's language *use*?
--   This is a testable hypothesis!
-
-## About the experiment
-
--   Learned about a set of fictional characters (he/him, she/her, and they/them)
-    -   Varied whether the introductions to the character explicitly stated their pronouns (*This is Alex, who uses they/them pronouns. They...*)
-    -   Varied whether the nametags included pronouns
--   Speech production task eliciting possessive pronouns (*Alex gave the apple to their brother.*)
--   Survey about their demographics and attitudes about/experiences with singular *they*
+-   Including pronouns on nametags and in introductions are common recommendations for creating a more gender-inclusive environment. We know it can affect people's perception of
+an environment, but does it also affect people's language *use*?
+-   Participants:
+    -   Learned about a set of fictional **characters** (he/him, she/her, and they/them)
+    -   **Nametag condition:** Varied whether the introductions to the character explicitly stated their pronouns (*This is Alex, who uses they/them pronouns. They...*)
+    -   **Introduction condition:** Varied whether the nametags included pronouns
+    -   **Speech production task** eliciting possessive pronouns (*Alex gave the apple to their brother.*)
+    -   **Survey** about their demographics, experience with singular *they*, and attitudes about singular *they*
 
 ## About the data
 
@@ -56,9 +55,9 @@ theme_blue <- "#5692e4"  # revealjs theme blue
 # https://www.r-bloggers.com/2022/06/creating-flowcharts-with-ggplot2/
 pipeline_start <- tribble(
   ~from, ~to,
-  "Designing survey questions & speech task", "Sample size determination (R)",
-  "Sample size determination (R)", "Text data (PCIbex)",
-  "Sample size determination (R)", "Audio data (AWS S3)",
+  "Designing survey questions & speech task", "Power analysis (R)",
+  "Power analysis (R)", "Text data (PCIbex)",
+  "Power analysis (R)", "Audio data (AWS S3)",
   "Text data (PCIbex)", "Preprocess (R)",
   "Audio data (AWS S3)", "Transcribe using whisper (Python)",
   "Transcribe using whisper (Python)", "Check transcriptions",
@@ -132,7 +131,7 @@ ggplot() +
   theme_void()
 ```
 
-## Sample size determinination
+## Power analysis
 
 Create a data structure with the structure of the proposed experiment, and estimate fixed and random effect sizes based on prior experiments.
 
@@ -253,9 +252,9 @@ exp3_pw_m_108 <- makeGlmer(
 summary(exp3_pw_m_108)
 ```
 
-## Sample size determination
+## Power analysis
 
-Use the {simr} package [@green2016] to simulate power for each effect at 108, 132, 156, and 180 participants.
+Use {simr} [@green2016] to simulate the power for each effect (Pronoun &times; Nametag/Intro, Pronoun &times; Nametag &times; Intro) at 108, 132, 156, and 180 participants.
 
 ```{r}
 #| label: power-data-simulation
@@ -281,13 +280,13 @@ exp3_pw_m_132 <- extend(exp3_pw_m_108, along = "Participant", n = 132)
 
 # Load and join results
 exp3_pw_results <- bind_rows(
-  .id = "sim",
-  "2_108" = readRDS("r_data/exp3_power_2way_N108.RDA") |> summary(),
-  "2_132" = readRDS("r_data/exp3_power_2way_N132.RDA") |> summary(),
-  "2_156" = readRDS("r_data/exp3_power_2way_N156.RDA") |> summary(),
-  "2_180" = readRDS("r_data/exp3_power_2way_N180.RDA") |> summary(),
-  "3_132" = readRDS("r_data/exp3_power_3way_N132.RDA") |> summary(),
-  "3_156" = readRDS("r_data/exp3_power_3way_N156.RDA") |> summary()
+    .id = "sim",
+    "2_108" = readRDS("r_data/exp3_power_2way_N108.RDA") |> summary(),
+    "2_132" = readRDS("r_data/exp3_power_2way_N132.RDA") |> summary(),
+    "2_156" = readRDS("r_data/exp3_power_2way_N156.RDA") |> summary(),
+    "2_180" = readRDS("r_data/exp3_power_2way_N180.RDA") |> summary(),
+    "3_132" = readRDS("r_data/exp3_power_3way_N132.RDA") |> summary(),
+    "3_156" = readRDS("r_data/exp3_power_3way_N156.RDA") |> summary()
   ) |>
   mutate(
     n_participants = str_sub(sim, 3),
@@ -299,7 +298,7 @@ exp3_pw_results <- bind_rows(
   column_to_rownames(var = "sim")
 ```
 
-## Sample size determination
+## Power analysis 
 
 -   We determined that 156 participants, each completing 30 trials, would have 0.93 \[0.91, 0.94\] power at α = .05 to detect the two-way interactions (Pronoun × Nametag/ Introduction).
 -   Note that in cognitive psychology, the goal is have enough statistical power to detect differences between experimental conditions, not necessarily to be able to generalize differences between groups of participants to the entire population.
@@ -321,8 +320,7 @@ ggplot() +
         str_starts(label, "Check t") ~ "highlight",
         .default = "fade"
       )),
-    aes(xmin = xmin, ymin = ymin, xmax = xmax, ymax = ymax, fill = group),
-    alpha = 0.4
+    aes(xmin = xmin, ymin = ymin, xmax = xmax, ymax = ymax, fill = group)
   ) +
   geom_text(
     data = pipeline_nodes,
@@ -345,7 +343,7 @@ ggplot() +
 
 -   PCIbex, our experiment platform, sends the audio data to an AWS S3 bucket
 -   It's most efficient to just download the data from S3 once and run the rest of the analyses locally, instead of querying it from S3 every time
--   Bash script to download new data; check that an audio file for each trial for each participant exists as expected; unzip, convert, and sort audio files
+-   Bash script to download new data; check that an audio file for each trial for each participant exists as expected; then unzip, convert, and sort audio files
 
 ## Audio data (AWS S3)
 
