@@ -1,0 +1,49 @@
+﻿participant_id,condition,nametag,intro,pronoun_pair,target_pronoun,target_id,distractor_pronoun,trial_id,transcription,he,his,she,her,they,their,disfluency,multiple_pronouns,pronoun_produced,accuracy
+P202,nametag,1,0,HS_HS,he,10,she,nametag_list4_critical01_he,Taylor gave the chocolate to his brother.,0,1,0,0,0,0,1,0,his,1
+P202,nametag,1,0,HS_HS,he,10,she,nametag_list4_critical02_he,Taylor gave the cherries to their brother.,0,0,0,0,0,1,0,0,their,0
+P202,nametag,1,0,HS_HS,he,10,she,nametag_list4_critical03_he,Taylor gave the avocado to his brother.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_HS,he,10,she,nametag_list4_critical04_he,Taylor gave the pumpkin to his brother.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_HS,he,10,she,nametag_list4_critical05_he,Sam gave the bread to his--Taylor gave the bread to his sister.,0,1,0,0,0,0,1,0,his,1
+P202,nametag,1,0,HS_HS,he,10,she,nametag_list4_critical06_he,Taylor gave the balloon to his sister.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_HS,he,10,she,nametag_list4_critical07_he,Taylor gave the cards to his sister.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_HS,he,10,she,nametag_list4_critical08_he,Taylor gave the glasses to his sister.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_T,he,10,they,nametag_list4_critical09_he,Taylor gave the corn to his sister.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_T,he,10,they,nametag_list4_critical10_he,Taylor gave the kiwi to his brother.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_T,he,10,they,nametag_list4_critical11_he,Taylor gave his brother grapes.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_T,he,10,they,nametag_list4_critical12_he,Taylor gave the pear to his brother.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_T,he,10,they,nametag_list4_critical13_he,Taylor gave the wa--orange juice--,0,0,0,0,0,0,1,0,none,NA
+P202,nametag,1,0,HS_T,he,10,they,nametag_list4_critical14_he,Taylor gave the yellow cap to his sister.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_T,he,10,they,nametag_list4_critical15_he,Taylor gave the scissors to his sister.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_T,he,10,they,nametag_list4_critical16_he,Taylor gave the suitcase to his sister.,0,1,0,0,0,0,0,0,his,1
+P202,nametag,1,0,HS_HS,she,11,he,nametag_list4_critical17_she,Jordan gave the spoon to her brother.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_HS,she,11,he,nametag_list4_critical18_she,Jordan gave the broccoli to her sister.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_HS,she,11,he,nametag_list4_critical19_she,Jordan gave her brother an egg.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_HS,she,11,he,nametag_list4_critical20_she,Jordan gave the strawberry to her brother.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_HS,she,11,he,nametag_list4_critical21_she,Jordan gave the pineapple to her sister.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_HS,she,11,he,nametag_list4_critical22_she,Jordan gave the bucket to her sister.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_HS,she,11,he,nametag_list4_critical23_she,Jordan gave the watch to her sister.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_HS,she,11,he,nametag_list4_critical24_she,Jordan gave the guitar to her sister.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_T,she,11,they,nametag_list4_critical25_she,Jordan gave the banana to her sister.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_T,she,11,they,nametag_list4_critical26_she,Jordan gave the bacon to their brother--to her brother.,0,0,0,1,0,1,1,1,her,1
+P202,nametag,1,0,HS_T,she,11,they,nametag_list4_critical27_she,Jordan gave the ice cream to her brother.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_T,she,11,they,nametag_list4_critical28_she,Jorin gave the carrot to her brother.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_T,she,11,they,nametag_list4_critical29_she,Jordan gave the lemon to her brother.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_T,she,11,they,nametag_list4_critical30_she,Jordan gave the stuffed animal to her sister.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_T,she,11,they,nametag_list4_critical31_she,Jordan gave the rose to her sister.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,HS_T,she,11,they,nametag_list4_critical32_she,Jordan gave the water bottle to her brother.,0,0,0,1,0,0,0,0,her,1
+P202,nametag,1,0,T_HS,they,12,she,nametag_list4_critical33_they,Sam gave the pizza to their brother.,0,0,0,0,0,1,0,0,their,1
+P202,nametag,1,0,T_HS,they,12,she,nametag_list4_critical34_they,Sam gave the plate to their brother.,0,0,0,0,0,1,0,0,their,1
+P202,nametag,1,0,T_HS,they,12,she,nametag_list4_critical35_they,Sam gave the orange to her brother.,0,0,0,1,0,0,1,0,her,0
+P202,nametag,1,0,T_HS,they,12,she,nametag_list4_critical36_they,Sam gave the potato to her--their brother.,0,0,0,1,0,1,1,1,their,1
+P202,nametag,1,0,T_HS,they,12,she,nametag_list4_critical37_they,Sam gave the apple to their sister.,0,0,0,0,0,1,1,0,their,1
+P202,nametag,1,0,T_HS,they,12,she,nametag_list4_critical38_they,Sam gave the brown bag to her sister.,0,0,0,1,0,0,0,0,her,0
+P202,nametag,1,0,T_HS,they,12,she,nametag_list4_critical39_they,Sam gave the teddy bear to their sister.,0,0,0,0,0,1,0,0,their,1
+P202,nametag,1,0,T_HS,they,12,she,nametag_list4_critical40_they,Sam gave the paintbrush to their sister.,0,0,0,0,0,1,0,0,their,1
+P202,nametag,1,0,T_HS,they,12,he,nametag_list4_critical41_they,Sam gave the mushroom to their sister.,0,0,0,0,0,1,0,0,their,1
+P202,nametag,1,0,T_HS,they,12,he,nametag_list4_critical42_they,Sam gave the onion to their brother.,0,0,0,0,0,1,0,0,their,1
+P202,nametag,1,0,T_HS,they,12,he,nametag_list4_critical43_they,Sam gave their brother a watermelon.,0,0,0,0,0,1,1,0,their,1
+P202,nametag,1,0,T_HS,they,12,he,nametag_list4_critical44_they,Sa--Sam gave the knife to her brother--to their brother.,0,0,0,1,0,1,1,1,their,1
+P202,nametag,1,0,T_HS,they,12,he,nametag_list4_critical45_they,Sam gave the cookie to their brother.,0,0,0,0,0,1,0,0,their,1
+P202,nametag,1,0,T_HS,they,12,he,nametag_list4_critical46_they,Sam gave the tomato to their sister.,0,0,0,0,0,1,1,0,their,1
+P202,nametag,1,0,T_HS,they,12,he,nametag_list4_critical47_they,Sam gave the pencil to her sister--their sister.,0,0,0,1,0,1,1,1,their,1
+P202,nametag,1,0,T_HS,they,12,he,nametag_list4_critical48_they,Sam gave the soccer ball to their sister.,0,0,0,0,0,1,0,0,their,1

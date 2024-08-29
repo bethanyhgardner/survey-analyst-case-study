@@ -489,4 +489,256 @@ text_dir = Path('..') / 'data' / 'exp2_transcription'
 transcribe_trials()
 ```
 
+## Check transcriptions {.scrollable}
+
+-   RA listened to audio and added back in disfluencies
+-   Coded for which pronouns are produced; accuracy determined by final pronoun
+
+```{r}
+#| label: example-data
+
+read.csv("example_data.csv") |>
+  rename_with(~str_replace_all(.x, "_", " ")) |>
+  kbl() |>
+  kable_styling()
+```
+
+## Check transcriptions
+
+-   Tests to check coding against regex and for completion
+
+```{r}
+#| label: check-data
+#| eval: false
+#| echo: true
+
+library(here)
+library(tidyverse)
+library(testthat)
+library(readxl)
+
+
+# Load data from coded CSVs----
+df <- list.files(
+  path = "data/exp2_coding",
+  pattern = "*coded.csv",
+  full.names = TRUE
+) |>
+  set_names() |>
+  map(read.csv) |>
+  list_rbind(names_to = "participant_id") |>
+  mutate(participant_id = str_sub(str_split_i(participant_id, "/", 3), 0, 4)) |>
+  mutate(
+    .before = trial_id,
+    character_list = str_remove(str_split_i(trial_id, "_", 2), "list")
+  ) |>
+  mutate(across(
+    c(ends_with("id"), contains("pronoun"), condition, character_list),
+    as.factor
+  )) |>
+  mutate(across(
+    starts_with("transcription"),
+    \(x) {
+      case_when(
+        x == "" ~ NA,
+        x == " ." ~ NA,
+        .default = str_replace(str_trim(x), "Jamie", "Jaime")  # fix spelling
+      )
+    }
+  )) |>
+  mutate(drop_trial = case_when(  # don't drop trial if sentence is cut off
+    str_detect(transcription_manual, "Alex") ~ 0,
+    str_detect(transcription_manual, "Casey") ~ 0,
+    str_detect(transcription_manual, "Jaime") ~ 0,
+    str_detect(transcription_manual, "Jordan") ~ 0,
+    str_detect(transcription_manual, "Sam") ~ 0,
+    str_detect(transcription_manual, "Taylor") ~ 0,
+    .default = drop_trial
+  )) |>
+  filter(str_starts(participant_id, "P"))  # drop incompletes
+
+
+# Calculate pronoun produced and accuracy----
+df2 <- df |>
+  mutate(
+    sum = his + her + their,
+    multiple_pronouns = ifelse(sum > 1, 1, 0),
+    he_loc = ifelse(
+      multiple_pronouns == 1 & he == 1,
+      str_locate(str_to_lower(transcription_manual), "\\bhe"), 0
+    ),
+    his_loc = ifelse(
+      multiple_pronouns == 1 & his == 1,
+      str_locate(str_to_lower(transcription_manual), "\\bhi"), 0
+    ),
+    she_loc = ifelse(
+      multiple_pronouns == 1 & she == 1,
+      str_locate(str_to_lower(transcription_manual), "\\bshe\\b"), 0
+    ),
+    her_loc = ifelse(
+      multiple_pronouns == 1 & her == 1,
+      str_locate(str_to_lower(transcription_manual), "\\bher\\b"), 0
+    ),
+    they_loc = ifelse(
+      multiple_pronouns == 1 & they == 1,
+      str_locate(str_to_lower(transcription_manual), "\\bthey\\b"),
+      0
+    ),
+    their_loc = ifelse(
+      multiple_pronouns == 1 & their == 1,
+      str_locate(str_to_lower(transcription_manual), "\\bthei"),
+      0
+    ),
+    max_loc = ifelse(
+      multiple_pronouns == 1,
+      pmax(he_loc, his_loc, she_loc, her_loc, they_loc, their_loc),
+      NA
+    ),
+    pronoun_produced = factor(
+      case_when(
+        sum == 0 ~ "none",
+        multiple_pronouns == 0 & (his == 1 | he == 1) ~ "his",
+        multiple_pronouns == 0 & (her == 1 | she == 1) ~ "her",
+        multiple_pronouns == 0 & (their == 1 | they == 1) ~ "their",
+        multiple_pronouns == 1 & max_loc == he_loc ~ "his",
+        multiple_pronouns == 1 & max_loc == his_loc ~ "his",
+        multiple_pronouns == 1 & max_loc == she_loc ~ "her",
+        multiple_pronouns == 1 & max_loc == her_loc ~ "her",
+        multiple_pronouns == 1 & max_loc == they_loc ~ "their",
+        multiple_pronouns == 1 & max_loc == their_loc ~ "their",
+        is.na(max_loc) & participant_id == "P329" &
+          str_detect(transcription_manual, "chocolate") ~ "his",
+        is.na(max_loc) & participant_id == "P492" &
+          str_detect(transcription_manual, "pencil") ~ "their"
+      ),
+      levels = c("his", "her", "their", "none")
+    ),
+    accuracy = case_when(
+      pronoun_produced == "none" ~ NA,
+      as.character(pronoun_produced) == "his" &
+        as.character(target_pronoun) == "he" ~ 1,
+      as.character(pronoun_produced) == "her" &
+        as.character(target_pronoun) == "she" ~ 1,
+      as.character(pronoun_produced) == "their" &
+        as.character(target_pronoun) == "they" ~ 1,
+      .default = 0
+    )
+  )
+
+# Drop trials with no data, drop calculation/extra columns, add item ID----
+df3 <- df2 |>
+  filter(drop_trial == 0 & !is.na(transcription_manual)) |>
+  rename(transcription = transcription_manual) |>
+  select(
+    -prolific_id, -correct_description, -transcription_whisper, -name_only,
+    -drop_trial, -notes, -sum, -ends_with("loc")
+  )
+
+character_lists <- read_excel(
+  path = here("materials", "exp2_stimuli.xlsx"),
+  sheet = "Character Sets",
+  skip = 2,
+  col_types = c("skip", rep("text", 7), rep("skip", 9))
+) |>
+  rename_with(str_to_lower) |>
+  mutate(across(everything(), as.factor))
+
+df3 <- df3 |>
+  left_join(
+    character_lists |> select(list, item, pronouns),
+    by = join_by(character_list == list, target_pronoun == pronouns),
+    relationship = "many-to-one"
+  ) |>
+  relocate(item, .after = target_pronoun) |>
+  rename(target_id = item) |>
+  select(-character_list)
+
+
+# Checks----
+test_that("No NAs in pronoun variables", {
+  expect_false(any(is.na(df3$he)))
+  expect_false(any(is.na(df3$his)))
+  expect_false(any(is.na(df3$she)))
+  expect_false(any(is.na(df3$her)))
+  expect_false(any(is.na(df3$they)))
+  expect_false(any(is.na(df3$their)))
+  expect_false(any(is.na(df3$name_only)))
+})
+
+test_that("Pronoun variables match regex", {
+  df_test <- df3 |>
+    mutate(transcription = str_to_lower(transcription)) |>
+    select(participant_id, transcription, he, his, she, her, they, their) |>
+    mutate(
+      has_he = case_when(
+        str_detect(transcription, "\\bhe\\b") ~ 1,
+        .default = 0
+      ),
+      has_his = case_when(
+        str_detect(transcription, "\\bhis\\b") ~ 1,
+        str_detect(transcription, "\\bhi-") ~ 1,
+        .default = 0
+      ),
+      has_she = case_when(
+        str_detect(transcription, "\\bshe\\b") ~ 1,
+        .default = 0
+      ),
+      has_her = case_when(
+        str_detect(transcription, "gave her a") ~ 0,
+        str_detect(transcription, "her glasses back") ~ 0,
+        str_detect(transcription, "pencil to h--") ~ 1,
+        str_detect(transcription, "\\bher\\b") ~ 1,
+        .default = 0
+      ),
+      has_they = case_when(
+        str_detect(transcription, "\\bthey\\b") ~ 1,
+        .default = 0
+      ),
+      has_their = case_when(
+        str_detect(transcription, "\\btheir\\b") ~ 1,
+        str_detect(transcription, "to thei-") ~ 1,
+        str_detect(transcription, "to theirs") ~ 1,
+        str_detect(transcription, "chocolate to th--") ~ 1,
+        .default = 0
+      )
+    )
+
+  expect_true(all(df_test$he == df_test$has_he))
+  expect_true(all(df_test$his == df_test$has_his))
+  expect_true(all(df_test$she == df_test$has_she))
+  expect_true(all(df_test$her == df_test$has_her))
+  expect_true(all(df_test$they == df_test$has_they))
+  expect_true(all(df_test$their == df_test$has_their))
+})
+
+test_that("All multiple pronoun trials coded as disfluencies and final coded", {
+  df_dis <- df3 |>
+    filter(multiple_pronouns == 1 & disfluency == 0) |>
+    filter(!(he == 1 & his == 1)) |>
+    filter(!(she == 1 & her == 1)) |>
+    filter(!(they == 1 & their == 1))
+  expect_equal(nrow(df_dis), 0)
+
+  expect_false(any(is.na(df3$pronoun_produced)))
+})
+
+
+# Counts----
+participants_missing_trials <- df |>
+  filter(!is.na(transcription_manual) & drop_trial == 0) |>
+  summarise(.by = participant_id, n = n_distinct(trial_id))
+sum(participants_missing_trials$n)
+
+df3 |>
+  summarise(
+    .by = c(condition, target_pronoun),
+    mean = mean(accuracy, na.rm = TRUE)
+  ) |>
+  arrange(target_pronoun)
+
+
+# Export----
+write_csv(df3, file = "data/exp2_pronouns.csv")
+```
+
 ## References

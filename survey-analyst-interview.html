@@ -1223,6 +1223,232 @@ display: block;
 margin-left: auto;
 margin-right: 0; }
 </style>
+  <script>$(document).ready(function(){
+    if (typeof $('[data-toggle="tooltip"]').tooltip === 'function') {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+    if ($('[data-toggle="popover"]').popover === 'function') {
+        $('[data-toggle="popover"]').popover();
+    }
+});
+</script>
+
+  <style type="text/css">
+.lightable-minimal {
+border-collapse: separate;
+border-spacing: 16px 1px;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-minimal td {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal th {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal thead tr:last-child th {
+border-bottom: 2px solid #00000050;
+empty-cells: hide;
+}
+.lightable-minimal tbody tr:first-child td {
+padding-top: 0.5em;
+}
+.lightable-minimal.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-minimal.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic {
+border-top: 0.16em solid #111111;
+border-bottom: 0.16em solid #111111;
+width: 100%;
+margin-bottom: 10px;
+margin: 10px 5px;
+}
+.lightable-classic tfoot tr td {
+border: 0;
+}
+.lightable-classic tfoot tr:first-child td {
+border-top: 0.14em solid #111111;
+}
+.lightable-classic caption {
+color: #222222;
+}
+.lightable-classic td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic thead tr:last-child th {
+border-bottom: 0.10em solid #111111;
+}
+.lightable-classic.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic-2 {
+border-top: 3px double #111111;
+border-bottom: 3px double #111111;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-classic-2 tfoot tr td {
+border: 0;
+}
+.lightable-classic-2 tfoot tr:first-child td {
+border-top: 3px double #111111;
+}
+.lightable-classic-2 caption {
+color: #222222;
+}
+.lightable-classic-2 td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic-2 th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic-2 tbody tr:last-child td {
+border-bottom: 3px double #111111;
+}
+.lightable-classic-2 thead tr:last-child th {
+border-bottom: 1px solid #111111;
+}
+.lightable-classic-2.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic-2.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #EEE;
+border-collapse: collapse;
+margin-bottom: 10px;
+}
+.lightable-material tfoot tr td {
+border: 0;
+}
+.lightable-material tfoot tr:first-child td {
+border-top: 1px solid #EEE;
+}
+.lightable-material th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+}
+.lightable-material td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+border-top: 1px solid #eeeeee;
+}
+.lightable-material.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #ddd;
+}
+.lightable-material-dark {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #FFFFFF12;
+border-collapse: collapse;
+margin-bottom: 10px;
+background-color: #363640;
+}
+.lightable-material-dark tfoot tr td {
+border: 0;
+}
+.lightable-material-dark tfoot tr:first-child td {
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF60;
+}
+.lightable-material-dark td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF;
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark.lightable-hover tbody tr:hover {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody tr:nth-child(even) {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material-dark.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #FFFFFF12;
+}
+.lightable-paper {
+width: 100%;
+margin-bottom: 10px;
+color: #444;
+}
+.lightable-paper tfoot tr td {
+border: 0;
+}
+.lightable-paper tfoot tr:first-child td {
+border-top: 1px solid #00000020;
+}
+.lightable-paper thead tr:last-child th {
+color: #666;
+vertical-align: bottom;
+border-bottom: 1px solid #00000020;
+line-height: 1.15em;
+padding: 10px 5px;
+}
+.lightable-paper td {
+vertical-align: middle;
+border-bottom: 1px solid #00000010;
+line-height: 1.15em;
+padding: 7px 5px;
+}
+.lightable-paper.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-paper.lightable-striped tbody tr:nth-child(even) {
+background-color: #00000008;
+}
+.lightable-paper.lightable-striped tbody td {
+border: 0;
+}
+</style>
+
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -1589,6 +1815,1338 @@ Bethany Gardner
 <span id="cb4-85"><a href></a>transcribe_trials()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="check-transcriptions" class="slide level2 scrollable">
+<h2>Check transcriptions</h2>
+<ul>
+<li class="fragment">RA listened to audio and added back in disfluencies</li>
+<li class="fragment">Coded for which pronouns are produced; accuracy determined by final pronoun</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">participant id</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">condition</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">nametag</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">intro</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">pronoun pair</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">target pronoun</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">target id</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">distractor pronoun</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">trial id</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">transcription</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">he</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">his</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">she</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">her</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">they</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">their</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">disfluency</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">multiple pronouns</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">pronoun produced</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical01_he</td>
+<td style="text-align: left;">Taylor gave the chocolate to his brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical02_he</td>
+<td style="text-align: left;">Taylor gave the cherries to their brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical03_he</td>
+<td style="text-align: left;">Taylor gave the avocado to his brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical04_he</td>
+<td style="text-align: left;">Taylor gave the pumpkin to his brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical05_he</td>
+<td style="text-align: left;">Sam gave the bread to his--Taylor gave the bread to his sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical06_he</td>
+<td style="text-align: left;">Taylor gave the balloon to his sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical07_he</td>
+<td style="text-align: left;">Taylor gave the cards to his sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical08_he</td>
+<td style="text-align: left;">Taylor gave the glasses to his sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical09_he</td>
+<td style="text-align: left;">Taylor gave the corn to his sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical10_he</td>
+<td style="text-align: left;">Taylor gave the kiwi to his brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical11_he</td>
+<td style="text-align: left;">Taylor gave his brother grapes.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical12_he</td>
+<td style="text-align: left;">Taylor gave the pear to his brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical13_he</td>
+<td style="text-align: left;">Taylor gave the wa--orange juice--</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical14_he</td>
+<td style="text-align: left;">Taylor gave the yellow cap to his sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical15_he</td>
+<td style="text-align: left;">Taylor gave the scissors to his sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical16_he</td>
+<td style="text-align: left;">Taylor gave the suitcase to his sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">his</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical17_she</td>
+<td style="text-align: left;">Jordan gave the spoon to her brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical18_she</td>
+<td style="text-align: left;">Jordan gave the broccoli to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical19_she</td>
+<td style="text-align: left;">Jordan gave her brother an egg.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical20_she</td>
+<td style="text-align: left;">Jordan gave the strawberry to her brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical21_she</td>
+<td style="text-align: left;">Jordan gave the pineapple to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical22_she</td>
+<td style="text-align: left;">Jordan gave the bucket to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical23_she</td>
+<td style="text-align: left;">Jordan gave the watch to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_HS</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical24_she</td>
+<td style="text-align: left;">Jordan gave the guitar to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical25_she</td>
+<td style="text-align: left;">Jordan gave the banana to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical26_she</td>
+<td style="text-align: left;">Jordan gave the bacon to their brother--to her brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical27_she</td>
+<td style="text-align: left;">Jordan gave the ice cream to her brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical28_she</td>
+<td style="text-align: left;">Jorin gave the carrot to her brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical29_she</td>
+<td style="text-align: left;">Jordan gave the lemon to her brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical30_she</td>
+<td style="text-align: left;">Jordan gave the stuffed animal to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical31_she</td>
+<td style="text-align: left;">Jordan gave the rose to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">HS_T</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: left;">nametag_list4_critical32_she</td>
+<td style="text-align: left;">Jordan gave the water bottle to her brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical33_they</td>
+<td style="text-align: left;">Sam gave the pizza to their brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical34_they</td>
+<td style="text-align: left;">Sam gave the plate to their brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical35_they</td>
+<td style="text-align: left;">Sam gave the orange to her brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical36_they</td>
+<td style="text-align: left;">Sam gave the potato to her--their brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical37_they</td>
+<td style="text-align: left;">Sam gave the apple to their sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical38_they</td>
+<td style="text-align: left;">Sam gave the brown bag to her sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">her</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical39_they</td>
+<td style="text-align: left;">Sam gave the teddy bear to their sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">she</td>
+<td style="text-align: left;">nametag_list4_critical40_they</td>
+<td style="text-align: left;">Sam gave the paintbrush to their sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical41_they</td>
+<td style="text-align: left;">Sam gave the mushroom to their sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical42_they</td>
+<td style="text-align: left;">Sam gave the onion to their brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical43_they</td>
+<td style="text-align: left;">Sam gave their brother a watermelon.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical44_they</td>
+<td style="text-align: left;">Sa--Sam gave the knife to her brother--to their brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical45_they</td>
+<td style="text-align: left;">Sam gave the cookie to their brother.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical46_they</td>
+<td style="text-align: left;">Sam gave the tomato to their sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical47_they</td>
+<td style="text-align: left;">Sam gave the pencil to her sister--their sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P202</td>
+<td style="text-align: left;">nametag</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">T_HS</td>
+<td style="text-align: left;">they</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">he</td>
+<td style="text-align: left;">nametag_list4_critical48_they</td>
+<td style="text-align: left;">Sam gave the soccer ball to their sister.</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">their</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="check-transcriptions-1" class="slide level2">
+<h2>Check transcriptions</h2>
+<ul>
+<li class="fragment">Tests to check coding against regex and for completion</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href></a><span class="fu">library</span>(here)</span>
+<span id="cb5-2"><a href></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-3"><a href></a><span class="fu">library</span>(testthat)</span>
+<span id="cb5-4"><a href></a><span class="fu">library</span>(readxl)</span>
+<span id="cb5-5"><a href></a></span>
+<span id="cb5-6"><a href></a></span>
+<span id="cb5-7"><a href></a><span class="co"># Load data from coded CSVs----</span></span>
+<span id="cb5-8"><a href></a>df <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb5-9"><a href></a>  <span class="at">path =</span> <span class="st">&quot;data/exp2_coding&quot;</span>,</span>
+<span id="cb5-10"><a href></a>  <span class="at">pattern =</span> <span class="st">&quot;*coded.csv&quot;</span>,</span>
+<span id="cb5-11"><a href></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-12"><a href></a>) <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href></a>  <span class="fu">set_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-14"><a href></a>  <span class="fu">map</span>(read.csv) <span class="sc">|&gt;</span></span>
+<span id="cb5-15"><a href></a>  <span class="fu">list_rbind</span>(<span class="at">names_to =</span> <span class="st">&quot;participant_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-16"><a href></a>  <span class="fu">mutate</span>(<span class="at">participant_id =</span> <span class="fu">str_sub</span>(<span class="fu">str_split_i</span>(participant_id, <span class="st">&quot;/&quot;</span>, <span class="dv">3</span>), <span class="dv">0</span>, <span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-17"><a href></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-18"><a href></a>    <span class="at">.before =</span> trial_id,</span>
+<span id="cb5-19"><a href></a>    <span class="at">character_list =</span> <span class="fu">str_remove</span>(<span class="fu">str_split_i</span>(trial_id, <span class="st">&quot;_&quot;</span>, <span class="dv">2</span>), <span class="st">&quot;list&quot;</span>)</span>
+<span id="cb5-20"><a href></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-21"><a href></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb5-22"><a href></a>    <span class="fu">c</span>(<span class="fu">ends_with</span>(<span class="st">&quot;id&quot;</span>), <span class="fu">contains</span>(<span class="st">&quot;pronoun&quot;</span>), condition, character_list),</span>
+<span id="cb5-23"><a href></a>    as.factor</span>
+<span id="cb5-24"><a href></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb5-25"><a href></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb5-26"><a href></a>    <span class="fu">starts_with</span>(<span class="st">&quot;transcription&quot;</span>),</span>
+<span id="cb5-27"><a href></a>    \(x) {</span>
+<span id="cb5-28"><a href></a>      <span class="fu">case_when</span>(</span>
+<span id="cb5-29"><a href></a>        x <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb5-30"><a href></a>        x <span class="sc">==</span> <span class="st">&quot; .&quot;</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb5-31"><a href></a>        <span class="at">.default =</span> <span class="fu">str_replace</span>(<span class="fu">str_trim</span>(x), <span class="st">&quot;Jamie&quot;</span>, <span class="st">&quot;Jaime&quot;</span>)  <span class="co"># fix spelling</span></span>
+<span id="cb5-32"><a href></a>      )</span>
+<span id="cb5-33"><a href></a>    }</span>
+<span id="cb5-34"><a href></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb5-35"><a href></a>  <span class="fu">mutate</span>(<span class="at">drop_trial =</span> <span class="fu">case_when</span>(  <span class="co"># don&#39;t drop trial if sentence is cut off</span></span>
+<span id="cb5-36"><a href></a>    <span class="fu">str_detect</span>(transcription_manual, <span class="st">&quot;Alex&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb5-37"><a href></a>    <span class="fu">str_detect</span>(transcription_manual, <span class="st">&quot;Casey&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb5-38"><a href></a>    <span class="fu">str_detect</span>(transcription_manual, <span class="st">&quot;Jaime&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb5-39"><a href></a>    <span class="fu">str_detect</span>(transcription_manual, <span class="st">&quot;Jordan&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb5-40"><a href></a>    <span class="fu">str_detect</span>(transcription_manual, <span class="st">&quot;Sam&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb5-41"><a href></a>    <span class="fu">str_detect</span>(transcription_manual, <span class="st">&quot;Taylor&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb5-42"><a href></a>    <span class="at">.default =</span> drop_trial</span>
+<span id="cb5-43"><a href></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb5-44"><a href></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(participant_id, <span class="st">&quot;P&quot;</span>))  <span class="co"># drop incompletes</span></span>
+<span id="cb5-45"><a href></a></span>
+<span id="cb5-46"><a href></a></span>
+<span id="cb5-47"><a href></a><span class="co"># Calculate pronoun produced and accuracy----</span></span>
+<span id="cb5-48"><a href></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb5-49"><a href></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-50"><a href></a>    <span class="at">sum =</span> his <span class="sc">+</span> her <span class="sc">+</span> their,</span>
+<span id="cb5-51"><a href></a>    <span class="at">multiple_pronouns =</span> <span class="fu">ifelse</span>(sum <span class="sc">&gt;</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb5-52"><a href></a>    <span class="at">he_loc =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb5-53"><a href></a>      multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> he <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-54"><a href></a>      <span class="fu">str_locate</span>(<span class="fu">str_to_lower</span>(transcription_manual), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bhe&quot;</span>), <span class="dv">0</span></span>
+<span id="cb5-55"><a href></a>    ),</span>
+<span id="cb5-56"><a href></a>    <span class="at">his_loc =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb5-57"><a href></a>      multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> his <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-58"><a href></a>      <span class="fu">str_locate</span>(<span class="fu">str_to_lower</span>(transcription_manual), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bhi&quot;</span>), <span class="dv">0</span></span>
+<span id="cb5-59"><a href></a>    ),</span>
+<span id="cb5-60"><a href></a>    <span class="at">she_loc =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb5-61"><a href></a>      multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> she <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-62"><a href></a>      <span class="fu">str_locate</span>(<span class="fu">str_to_lower</span>(transcription_manual), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bshe</span><span class="sc">\\</span><span class="st">b&quot;</span>), <span class="dv">0</span></span>
+<span id="cb5-63"><a href></a>    ),</span>
+<span id="cb5-64"><a href></a>    <span class="at">her_loc =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb5-65"><a href></a>      multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> her <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-66"><a href></a>      <span class="fu">str_locate</span>(<span class="fu">str_to_lower</span>(transcription_manual), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bher</span><span class="sc">\\</span><span class="st">b&quot;</span>), <span class="dv">0</span></span>
+<span id="cb5-67"><a href></a>    ),</span>
+<span id="cb5-68"><a href></a>    <span class="at">they_loc =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb5-69"><a href></a>      multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> they <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-70"><a href></a>      <span class="fu">str_locate</span>(<span class="fu">str_to_lower</span>(transcription_manual), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bthey</span><span class="sc">\\</span><span class="st">b&quot;</span>),</span>
+<span id="cb5-71"><a href></a>      <span class="dv">0</span></span>
+<span id="cb5-72"><a href></a>    ),</span>
+<span id="cb5-73"><a href></a>    <span class="at">their_loc =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb5-74"><a href></a>      multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> their <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-75"><a href></a>      <span class="fu">str_locate</span>(<span class="fu">str_to_lower</span>(transcription_manual), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bthei&quot;</span>),</span>
+<span id="cb5-76"><a href></a>      <span class="dv">0</span></span>
+<span id="cb5-77"><a href></a>    ),</span>
+<span id="cb5-78"><a href></a>    <span class="at">max_loc =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb5-79"><a href></a>      multiple_pronouns <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-80"><a href></a>      <span class="fu">pmax</span>(he_loc, his_loc, she_loc, her_loc, they_loc, their_loc),</span>
+<span id="cb5-81"><a href></a>      <span class="cn">NA</span></span>
+<span id="cb5-82"><a href></a>    ),</span>
+<span id="cb5-83"><a href></a>    <span class="at">pronoun_produced =</span> <span class="fu">factor</span>(</span>
+<span id="cb5-84"><a href></a>      <span class="fu">case_when</span>(</span>
+<span id="cb5-85"><a href></a>        sum <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb5-86"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> (his <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> he <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">~</span> <span class="st">&quot;his&quot;</span>,</span>
+<span id="cb5-87"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> (her <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> she <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">~</span> <span class="st">&quot;her&quot;</span>,</span>
+<span id="cb5-88"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> (their <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> they <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">~</span> <span class="st">&quot;their&quot;</span>,</span>
+<span id="cb5-89"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> max_loc <span class="sc">==</span> he_loc <span class="sc">~</span> <span class="st">&quot;his&quot;</span>,</span>
+<span id="cb5-90"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> max_loc <span class="sc">==</span> his_loc <span class="sc">~</span> <span class="st">&quot;his&quot;</span>,</span>
+<span id="cb5-91"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> max_loc <span class="sc">==</span> she_loc <span class="sc">~</span> <span class="st">&quot;her&quot;</span>,</span>
+<span id="cb5-92"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> max_loc <span class="sc">==</span> her_loc <span class="sc">~</span> <span class="st">&quot;her&quot;</span>,</span>
+<span id="cb5-93"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> max_loc <span class="sc">==</span> they_loc <span class="sc">~</span> <span class="st">&quot;their&quot;</span>,</span>
+<span id="cb5-94"><a href></a>        multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> max_loc <span class="sc">==</span> their_loc <span class="sc">~</span> <span class="st">&quot;their&quot;</span>,</span>
+<span id="cb5-95"><a href></a>        <span class="fu">is.na</span>(max_loc) <span class="sc">&amp;</span> participant_id <span class="sc">==</span> <span class="st">&quot;P329&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb5-96"><a href></a>          <span class="fu">str_detect</span>(transcription_manual, <span class="st">&quot;chocolate&quot;</span>) <span class="sc">~</span> <span class="st">&quot;his&quot;</span>,</span>
+<span id="cb5-97"><a href></a>        <span class="fu">is.na</span>(max_loc) <span class="sc">&amp;</span> participant_id <span class="sc">==</span> <span class="st">&quot;P492&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb5-98"><a href></a>          <span class="fu">str_detect</span>(transcription_manual, <span class="st">&quot;pencil&quot;</span>) <span class="sc">~</span> <span class="st">&quot;their&quot;</span></span>
+<span id="cb5-99"><a href></a>      ),</span>
+<span id="cb5-100"><a href></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;his&quot;</span>, <span class="st">&quot;her&quot;</span>, <span class="st">&quot;their&quot;</span>, <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb5-101"><a href></a>    ),</span>
+<span id="cb5-102"><a href></a>    <span class="at">accuracy =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-103"><a href></a>      pronoun_produced <span class="sc">==</span> <span class="st">&quot;none&quot;</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb5-104"><a href></a>      <span class="fu">as.character</span>(pronoun_produced) <span class="sc">==</span> <span class="st">&quot;his&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb5-105"><a href></a>        <span class="fu">as.character</span>(target_pronoun) <span class="sc">==</span> <span class="st">&quot;he&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-106"><a href></a>      <span class="fu">as.character</span>(pronoun_produced) <span class="sc">==</span> <span class="st">&quot;her&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb5-107"><a href></a>        <span class="fu">as.character</span>(target_pronoun) <span class="sc">==</span> <span class="st">&quot;she&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-108"><a href></a>      <span class="fu">as.character</span>(pronoun_produced) <span class="sc">==</span> <span class="st">&quot;their&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb5-109"><a href></a>        <span class="fu">as.character</span>(target_pronoun) <span class="sc">==</span> <span class="st">&quot;they&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-110"><a href></a>      <span class="at">.default =</span> <span class="dv">0</span></span>
+<span id="cb5-111"><a href></a>    )</span>
+<span id="cb5-112"><a href></a>  )</span>
+<span id="cb5-113"><a href></a></span>
+<span id="cb5-114"><a href></a><span class="co"># Drop trials with no data, drop calculation/extra columns, add item ID----</span></span>
+<span id="cb5-115"><a href></a>df3 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
+<span id="cb5-116"><a href></a>  <span class="fu">filter</span>(drop_trial <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(transcription_manual)) <span class="sc">|&gt;</span></span>
+<span id="cb5-117"><a href></a>  <span class="fu">rename</span>(<span class="at">transcription =</span> transcription_manual) <span class="sc">|&gt;</span></span>
+<span id="cb5-118"><a href></a>  <span class="fu">select</span>(</span>
+<span id="cb5-119"><a href></a>    <span class="sc">-</span>prolific_id, <span class="sc">-</span>correct_description, <span class="sc">-</span>transcription_whisper, <span class="sc">-</span>name_only,</span>
+<span id="cb5-120"><a href></a>    <span class="sc">-</span>drop_trial, <span class="sc">-</span>notes, <span class="sc">-</span>sum, <span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">&quot;loc&quot;</span>)</span>
+<span id="cb5-121"><a href></a>  )</span>
+<span id="cb5-122"><a href></a></span>
+<span id="cb5-123"><a href></a>character_lists <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
+<span id="cb5-124"><a href></a>  <span class="at">path =</span> <span class="fu">here</span>(<span class="st">&quot;materials&quot;</span>, <span class="st">&quot;exp2_stimuli.xlsx&quot;</span>),</span>
+<span id="cb5-125"><a href></a>  <span class="at">sheet =</span> <span class="st">&quot;Character Sets&quot;</span>,</span>
+<span id="cb5-126"><a href></a>  <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb5-127"><a href></a>  <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;skip&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;text&quot;</span>, <span class="dv">7</span>), <span class="fu">rep</span>(<span class="st">&quot;skip&quot;</span>, <span class="dv">9</span>))</span>
+<span id="cb5-128"><a href></a>) <span class="sc">|&gt;</span></span>
+<span id="cb5-129"><a href></a>  <span class="fu">rename_with</span>(str_to_lower) <span class="sc">|&gt;</span></span>
+<span id="cb5-130"><a href></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), as.factor))</span>
+<span id="cb5-131"><a href></a></span>
+<span id="cb5-132"><a href></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">|&gt;</span></span>
+<span id="cb5-133"><a href></a>  <span class="fu">left_join</span>(</span>
+<span id="cb5-134"><a href></a>    character_lists <span class="sc">|&gt;</span> <span class="fu">select</span>(list, item, pronouns),</span>
+<span id="cb5-135"><a href></a>    <span class="at">by =</span> <span class="fu">join_by</span>(character_list <span class="sc">==</span> list, target_pronoun <span class="sc">==</span> pronouns),</span>
+<span id="cb5-136"><a href></a>    <span class="at">relationship =</span> <span class="st">&quot;many-to-one&quot;</span></span>
+<span id="cb5-137"><a href></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-138"><a href></a>  <span class="fu">relocate</span>(item, <span class="at">.after =</span> target_pronoun) <span class="sc">|&gt;</span></span>
+<span id="cb5-139"><a href></a>  <span class="fu">rename</span>(<span class="at">target_id =</span> item) <span class="sc">|&gt;</span></span>
+<span id="cb5-140"><a href></a>  <span class="fu">select</span>(<span class="sc">-</span>character_list)</span>
+<span id="cb5-141"><a href></a></span>
+<span id="cb5-142"><a href></a></span>
+<span id="cb5-143"><a href></a><span class="co"># Checks----</span></span>
+<span id="cb5-144"><a href></a><span class="fu">test_that</span>(<span class="st">&quot;No NAs in pronoun variables&quot;</span>, {</span>
+<span id="cb5-145"><a href></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(df3<span class="sc">$</span>he)))</span>
+<span id="cb5-146"><a href></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(df3<span class="sc">$</span>his)))</span>
+<span id="cb5-147"><a href></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(df3<span class="sc">$</span>she)))</span>
+<span id="cb5-148"><a href></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(df3<span class="sc">$</span>her)))</span>
+<span id="cb5-149"><a href></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(df3<span class="sc">$</span>they)))</span>
+<span id="cb5-150"><a href></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(df3<span class="sc">$</span>their)))</span>
+<span id="cb5-151"><a href></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(df3<span class="sc">$</span>name_only)))</span>
+<span id="cb5-152"><a href></a>})</span>
+<span id="cb5-153"><a href></a></span>
+<span id="cb5-154"><a href></a><span class="fu">test_that</span>(<span class="st">&quot;Pronoun variables match regex&quot;</span>, {</span>
+<span id="cb5-155"><a href></a>  df_test <span class="ot">&lt;-</span> df3 <span class="sc">|&gt;</span></span>
+<span id="cb5-156"><a href></a>    <span class="fu">mutate</span>(<span class="at">transcription =</span> <span class="fu">str_to_lower</span>(transcription)) <span class="sc">|&gt;</span></span>
+<span id="cb5-157"><a href></a>    <span class="fu">select</span>(participant_id, transcription, he, his, she, her, they, their) <span class="sc">|&gt;</span></span>
+<span id="cb5-158"><a href></a>    <span class="fu">mutate</span>(</span>
+<span id="cb5-159"><a href></a>      <span class="at">has_he =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-160"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bhe</span><span class="sc">\\</span><span class="st">b&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-161"><a href></a>        <span class="at">.default =</span> <span class="dv">0</span></span>
+<span id="cb5-162"><a href></a>      ),</span>
+<span id="cb5-163"><a href></a>      <span class="at">has_his =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-164"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bhis</span><span class="sc">\\</span><span class="st">b&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-165"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bhi-&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-166"><a href></a>        <span class="at">.default =</span> <span class="dv">0</span></span>
+<span id="cb5-167"><a href></a>      ),</span>
+<span id="cb5-168"><a href></a>      <span class="at">has_she =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-169"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bshe</span><span class="sc">\\</span><span class="st">b&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-170"><a href></a>        <span class="at">.default =</span> <span class="dv">0</span></span>
+<span id="cb5-171"><a href></a>      ),</span>
+<span id="cb5-172"><a href></a>      <span class="at">has_her =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-173"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;gave her a&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb5-174"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;her glasses back&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb5-175"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;pencil to h--&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-176"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bher</span><span class="sc">\\</span><span class="st">b&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-177"><a href></a>        <span class="at">.default =</span> <span class="dv">0</span></span>
+<span id="cb5-178"><a href></a>      ),</span>
+<span id="cb5-179"><a href></a>      <span class="at">has_they =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-180"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">bthey</span><span class="sc">\\</span><span class="st">b&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-181"><a href></a>        <span class="at">.default =</span> <span class="dv">0</span></span>
+<span id="cb5-182"><a href></a>      ),</span>
+<span id="cb5-183"><a href></a>      <span class="at">has_their =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-184"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">btheir</span><span class="sc">\\</span><span class="st">b&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-185"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;to thei-&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-186"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;to theirs&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-187"><a href></a>        <span class="fu">str_detect</span>(transcription, <span class="st">&quot;chocolate to th--&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-188"><a href></a>        <span class="at">.default =</span> <span class="dv">0</span></span>
+<span id="cb5-189"><a href></a>      )</span>
+<span id="cb5-190"><a href></a>    )</span>
+<span id="cb5-191"><a href></a></span>
+<span id="cb5-192"><a href></a>  <span class="fu">expect_true</span>(<span class="fu">all</span>(df_test<span class="sc">$</span>he <span class="sc">==</span> df_test<span class="sc">$</span>has_he))</span>
+<span id="cb5-193"><a href></a>  <span class="fu">expect_true</span>(<span class="fu">all</span>(df_test<span class="sc">$</span>his <span class="sc">==</span> df_test<span class="sc">$</span>has_his))</span>
+<span id="cb5-194"><a href></a>  <span class="fu">expect_true</span>(<span class="fu">all</span>(df_test<span class="sc">$</span>she <span class="sc">==</span> df_test<span class="sc">$</span>has_she))</span>
+<span id="cb5-195"><a href></a>  <span class="fu">expect_true</span>(<span class="fu">all</span>(df_test<span class="sc">$</span>her <span class="sc">==</span> df_test<span class="sc">$</span>has_her))</span>
+<span id="cb5-196"><a href></a>  <span class="fu">expect_true</span>(<span class="fu">all</span>(df_test<span class="sc">$</span>they <span class="sc">==</span> df_test<span class="sc">$</span>has_they))</span>
+<span id="cb5-197"><a href></a>  <span class="fu">expect_true</span>(<span class="fu">all</span>(df_test<span class="sc">$</span>their <span class="sc">==</span> df_test<span class="sc">$</span>has_their))</span>
+<span id="cb5-198"><a href></a>})</span>
+<span id="cb5-199"><a href></a></span>
+<span id="cb5-200"><a href></a><span class="fu">test_that</span>(<span class="st">&quot;All multiple pronoun trials coded as disfluencies and final coded&quot;</span>, {</span>
+<span id="cb5-201"><a href></a>  df_dis <span class="ot">&lt;-</span> df3 <span class="sc">|&gt;</span></span>
+<span id="cb5-202"><a href></a>    <span class="fu">filter</span>(multiple_pronouns <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> disfluency <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-203"><a href></a>    <span class="fu">filter</span>(<span class="sc">!</span>(he <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> his <span class="sc">==</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-204"><a href></a>    <span class="fu">filter</span>(<span class="sc">!</span>(she <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> her <span class="sc">==</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-205"><a href></a>    <span class="fu">filter</span>(<span class="sc">!</span>(they <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> their <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb5-206"><a href></a>  <span class="fu">expect_equal</span>(<span class="fu">nrow</span>(df_dis), <span class="dv">0</span>)</span>
+<span id="cb5-207"><a href></a></span>
+<span id="cb5-208"><a href></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(df3<span class="sc">$</span>pronoun_produced)))</span>
+<span id="cb5-209"><a href></a>})</span>
+<span id="cb5-210"><a href></a></span>
+<span id="cb5-211"><a href></a></span>
+<span id="cb5-212"><a href></a><span class="co"># Counts----</span></span>
+<span id="cb5-213"><a href></a>participants_missing_trials <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb5-214"><a href></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(transcription_manual) <span class="sc">&amp;</span> drop_trial <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-215"><a href></a>  <span class="fu">summarise</span>(<span class="at">.by =</span> participant_id, <span class="at">n =</span> <span class="fu">n_distinct</span>(trial_id))</span>
+<span id="cb5-216"><a href></a><span class="fu">sum</span>(participants_missing_trials<span class="sc">$</span>n)</span>
+<span id="cb5-217"><a href></a></span>
+<span id="cb5-218"><a href></a>df3 <span class="sc">|&gt;</span></span>
+<span id="cb5-219"><a href></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-220"><a href></a>    <span class="at">.by =</span> <span class="fu">c</span>(condition, target_pronoun),</span>
+<span id="cb5-221"><a href></a>    <span class="at">mean =</span> <span class="fu">mean</span>(accuracy, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-222"><a href></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-223"><a href></a>  <span class="fu">arrange</span>(target_pronoun)</span>
+<span id="cb5-224"><a href></a></span>
+<span id="cb5-225"><a href></a></span>
+<span id="cb5-226"><a href></a><span class="co"># Export----</span></span>
+<span id="cb5-227"><a href></a><span class="fu">write_csv</span>(df3, <span class="at">file =</span> <span class="st">&quot;data/exp2_pronouns.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 <div class="quarto-auto-generated-content">
@@ -1598,7 +3156,7 @@ Bethany Gardner
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-green2016" class="csl-entry" role="listitem">
-Green, P., and C. J. MacLeod. 2016. <span>“Simr: An r Package for Power Analysis of Generalized Linear Mixed Models by Simulation.”</span> <em>Methods in Ecology and Evolution</em> 7 (4): 493–98. <a href="https://doi.org/10.1111/2041-210X.12504">https://doi.org/10.1111/2041-210X.12504</a>.
+Green, P., and C. J. MacLeod. 2016. <span>“<span class="nocase">simr</span>: An <span>R</span> Package for Power Analysis of Generalized Linear Mixed Models by Simulation.”</span> <em>Methods in Ecology and Evolution</em> 7 (4): 493–98. <a href="https://doi.org/10.1111/2041-210X.12504">https://doi.org/10.1111/2041-210X.12504</a>.
 </div>
 <div id="ref-radford" class="csl-entry" role="listitem">
 Radford, Alec, Jong Wook Kim, Tao Xu, Greg Brockman, Christine McLeavey, and Ilya Sutskever. 2022. <span>“Robust Speech Recognition via Large-Scale Weak Supervision.”</span> <a href="https://doi.org/10.48550/ARXIV.2212.04356">https://doi.org/10.48550/ARXIV.2212.04356</a>.
