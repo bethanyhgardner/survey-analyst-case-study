@@ -1440,4 +1440,52 @@ exp3_r_reliability <- exp3_m_reliability |>
 exp3_r_reliability
 ```
 
+## Multilevel model
+
+::: incremental
+-   The data is nested within participants and items, so we fit a mixed-effects model with crossed random effects.
+-   Pronoun is coded with Orthogonal Helmert contrasts (1st contrast compares they/them to he/him + she/her; 2nd contrast not relevant here). Nametag and Introduction are mean-center effects coded. Demographic/survey variables are all mean-centered.
+-   The maximal model justified by the experimental design:
+`Accuracy ~ Pronoun * Nametag * Intro + (Pronoun | ParticipantID) + (1 | Character)` [@baayen2008; @barr2013].
+-   The maximal model that converged only included random intercepts.
+-   Stepwise regression to test if adding the demographic, language experience, and language attitude variables significantly improves model fit above the hypothesis-testing model.
+:::
+
+## Multilevel model
+
+-   Using {lme4} for logistic mixed-effects regression modeling [@bates2015] and {buildmer} for stepwise model comparison [@voeten2023]
+-   Can run this locally, or on an Amazon EC2 instance to save time using {paws}
+
+```{r}
+#| label: model
+#| eval: false
+#| echo: true
+
+# Run in parallel with 6 clusters
+# Won't work when running as background job, but otherwise much faster
+cl6 <- makeCluster(6)  # make 6 clusters, keep default type
+clusterEvalQ(cl6, "buildmer")  # check all packages are loaded to each cluster
+clusterExport(cl6, "exp3_d_subjCov")  # check data is loaded to each cluster
+
+exp3_m_subj_cov <- buildmer(
+  formula = Accuracy ~ Pronoun * Nametag * Intro *  # allow all interactions
+            Age_C * Familiarity_C * GenderBeliefs_C * LGBTQ_Fct +
+            Rating_C * Sharing_C +
+            (1 | ParticipantID) + (1 | Character),
+  data = exp3_d_subjCov,
+  family = binomial,
+  buildmerControl = list(
+    direction = c("order", "backward"),  # max then backwards elim (default)
+    cl = cl6,
+    args = list(glmerControl(optimizer = "bobyqa")),  # nlminbwrap had huge SE
+    # require Pronoun * Nametag * Intro and both random intercepts
+    # aka keep hypothesis testing model
+    include =
+      "Pronoun * Nametag * Intro + (1 | ParticipantID) + (1 | Character)"
+    )
+  )
+stopCluster(cl6)
+remove(cl6)
+```
+
 ## References

@@ -4409,6 +4409,52 @@ Bethany Gardner
 <span id="cb8-41"><a href></a>exp3_r_reliability</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="multilevel-model" class="slide level2">
+<h2>Multilevel model</h2>
+<div>
+<ul>
+<li class="fragment">The data is nested within participants and items, so we fit a mixed-effects model with crossed random effects.</li>
+<li class="fragment">Pronoun is coded with Orthogonal Helmert contrasts (1st contrast compares they/them to he/him + she/her; 2nd contrast not relevant here). Nametag and Introduction are mean-center effects coded. Demographic/survey variables are all mean-centered.</li>
+<li class="fragment">The maximal model justified by the experimental design: <code>Accuracy ~ Pronoun * Nametag * Intro + (Pronoun | ParticipantID) + (1 | Character)</code> <span class="citation" data-cites="baayen2008 barr2013">(<a href="#/references" role="doc-biblioref" onclick>Baayen, Davidson, and Bates 2008</a>; <a href="#/references" role="doc-biblioref" onclick>Barr et al. 2013</a>)</span>.</li>
+<li class="fragment">The maximal model that converged only included random intercepts.</li>
+<li class="fragment">Stepwise regression to test if adding the demographic, language experience, and language attitude variables significantly improves model fit above the hypothesis-testing model.</li>
+</ul>
+</div>
+</section>
+<section id="multilevel-model-1" class="slide level2">
+<h2>Multilevel model</h2>
+<ul>
+<li>Using {lme4} for logistic mixed-effects regression modeling <span class="citation" data-cites="bates2015">(<a href="#/references" role="doc-biblioref" onclick>Bates et al. 2015</a>)</span> and {buildmer} for stepwise model comparison <span class="citation" data-cites="voeten2023">(<a href="#/references" role="doc-biblioref" onclick>Voeten 2023</a>)</span></li>
+<li>Can run this locally, or on an Amazon EC2 instance to save time using {paws}</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href></a><span class="co"># Run in parallel with 6 clusters</span></span>
+<span id="cb9-2"><a href></a><span class="co"># Won&#39;t work when running as background job, but otherwise much faster</span></span>
+<span id="cb9-3"><a href></a>cl6 <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">6</span>)  <span class="co"># make 6 clusters, keep default type</span></span>
+<span id="cb9-4"><a href></a><span class="fu">clusterEvalQ</span>(cl6, <span class="st">&quot;buildmer&quot;</span>)  <span class="co"># check all packages are loaded to each cluster</span></span>
+<span id="cb9-5"><a href></a><span class="fu">clusterExport</span>(cl6, <span class="st">&quot;exp3_d_subjCov&quot;</span>)  <span class="co"># check data is loaded to each cluster</span></span>
+<span id="cb9-6"><a href></a></span>
+<span id="cb9-7"><a href></a>exp3_m_subj_cov <span class="ot">&lt;-</span> <span class="fu">buildmer</span>(</span>
+<span id="cb9-8"><a href></a>  <span class="at">formula =</span> Accuracy <span class="sc">~</span> Pronoun <span class="sc">*</span> Nametag <span class="sc">*</span> Intro <span class="sc">*</span>  <span class="co"># allow all interactions</span></span>
+<span id="cb9-9"><a href></a>            Age_C <span class="sc">*</span> Familiarity_C <span class="sc">*</span> GenderBeliefs_C <span class="sc">*</span> LGBTQ_Fct <span class="sc">+</span></span>
+<span id="cb9-10"><a href></a>            Rating_C <span class="sc">*</span> Sharing_C <span class="sc">+</span></span>
+<span id="cb9-11"><a href></a>            (<span class="dv">1</span> <span class="sc">|</span> ParticipantID) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Character),</span>
+<span id="cb9-12"><a href></a>  <span class="at">data =</span> exp3_d_subjCov,</span>
+<span id="cb9-13"><a href></a>  <span class="at">family =</span> binomial,</span>
+<span id="cb9-14"><a href></a>  <span class="at">buildmerControl =</span> <span class="fu">list</span>(</span>
+<span id="cb9-15"><a href></a>    <span class="at">direction =</span> <span class="fu">c</span>(<span class="st">&quot;order&quot;</span>, <span class="st">&quot;backward&quot;</span>),  <span class="co"># max then backwards elim (default)</span></span>
+<span id="cb9-16"><a href></a>    <span class="at">cl =</span> cl6,</span>
+<span id="cb9-17"><a href></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>)),  <span class="co"># nlminbwrap had huge SE</span></span>
+<span id="cb9-18"><a href></a>    <span class="co"># require Pronoun * Nametag * Intro and both random intercepts</span></span>
+<span id="cb9-19"><a href></a>    <span class="co"># aka keep hypothesis testing model</span></span>
+<span id="cb9-20"><a href></a>    <span class="at">include =</span></span>
+<span id="cb9-21"><a href></a>      <span class="st">&quot;Pronoun * Nametag * Intro + (1 | ParticipantID) + (1 | Character)&quot;</span></span>
+<span id="cb9-22"><a href></a>    )</span>
+<span id="cb9-23"><a href></a>  )</span>
+<span id="cb9-24"><a href></a><span class="fu">stopCluster</span>(cl6)</span>
+<span id="cb9-25"><a href></a><span class="fu">remove</span>(cl6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 <div class="quarto-auto-generated-content">
@@ -4417,6 +4463,15 @@ Bethany Gardner
 </div>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-baayen2008" class="csl-entry" role="listitem">
+Baayen, R. H., D. J. Davidson, and D. M. Bates. 2008. <span>“Mixed-Effects Modeling with Crossed Random Effects for Subjects and Items.”</span> <em>Journal of Memory and Language</em> 59 (4): 390–412. <a href="https://doi.org/10.1016/j.jml.2007.12.005">https://doi.org/10.1016/j.jml.2007.12.005</a>.
+</div>
+<div id="ref-barr2013" class="csl-entry" role="listitem">
+Barr, Dale J., Roger Levy, Christoph Scheepers, and Harry J. Tily. 2013. <span>“Random Effects Structure for Confirmatory Hypothesis Testing: Keep It Maximal.”</span> <em>Journal of Memory and Language</em> 68 (3): 255–78. <a href="https://doi.org/10.1016/j.jml.2012.11.001">https://doi.org/10.1016/j.jml.2012.11.001</a>.
+</div>
+<div id="ref-bates2015" class="csl-entry" role="listitem">
+Bates, D. M., Martin Mächler, Benjamin M. Bolker, and Steven C. Walker. 2015. <span>“Fitting Linear Mixed-Effects Models Using Lme4.”</span> <em>Journal of Statistical Software</em> 67 (1): 1–48. <a href="https://doi.org/10.18637/jss.v067.i01">https://doi.org/10.18637/jss.v067.i01</a>.
+</div>
 <div id="ref-bürkner2017" class="csl-entry" role="listitem">
 Bürkner, Paul-Christian. 2017. <span>“Brms: An r Package for Bayesian Multilevel Models Using Stan.”</span> <em>Journal of Statistical Software</em> 80 (1): 1–28. <a href="https://doi.org/10.18637/jss.v080.i01">https://doi.org/10.18637/jss.v080.i01</a>.
 </div>
@@ -4431,6 +4486,9 @@ Radford, Alec, Jong Wook Kim, Tao Xu, Greg Brockman, Christine McLeavey, and Ily
 </div>
 <div id="ref-staub2021" class="csl-entry" role="listitem">
 Staub, Adrian. 2021. <span>“How Reliable Are Individual Differences in Eye Movements in Reading?”</span> <em>Journal of Memory and Language</em> 116: 104190. <a href="https://doi.org/10.1016/j.jml.2020.104190">https://doi.org/10.1016/j.jml.2020.104190</a>.
+</div>
+<div id="ref-voeten2023" class="csl-entry" role="listitem">
+Voeten, Cesko C. 2023. <em>Buildmer: Stepwise Elimination and Term Reordering for Mixed-Effects Regression</em>. <a href="https://CRAN.R-project.org/package=buildmer">https://CRAN.R-project.org/package=buildmer</a>.
 </div>
 </div>
 </section>
