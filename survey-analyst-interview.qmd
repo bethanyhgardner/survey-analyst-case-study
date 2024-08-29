@@ -1489,3 +1489,30 @@ remove(cl6)
 ```
 
 ## References
+
+::: {#refs}
+:::
+
+##  {#results-survey data-menu-title="Results: Prior Familiarity & Attitudes"}
+
+![](images/fig-exp3-survey-1.png){fig-align="center"}
+
+## {#results-distribution data-menu-title="Results: Distribution"}
+
+![](images/fig-exp3-dist-1.png){fig-align="center"}
+
+##  {#results-accuracy data-menu-title="Results: Accuracy"}
+
+![](images/fig-exp3-acc-1.png){fig-align="center"}
+
+##  {#results-means data-menu-title="Results: Condition Means"}
+
+![](images/fig-exp3-conds-1.png){fig-align="center"}
+
+##  {#results-correlations data-menu-title="Results: Correlations"}
+
+![](images/fig-exp3-corr-1.png){fig-align="center"}
+
+##  {#results-gender-beliefs data-menu-title="Results: Gender Beliefs"}
+
+![](images/fig-exp3-gender-beliefs-1.png){fig-align="center"}
