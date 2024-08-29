@@ -9,6 +9,7 @@ format:
     incremental: true
     slide-number: true
     theme: white
+bibliography: references.bib
 ---
 
 ```{r}
@@ -254,7 +255,7 @@ summary(exp3_pw_m_108)
 
 ## Sample size determination
 
-Use the {simr} package to simulate data and estimate the power for each effect at 108, 132, 156, and 180 participants.
+Use the {simr} package [@green2016] to simulate power for each effect at 108, 132, 156, and 180 participants.
 
 ```{r}
 #| label: power-data-simulation
@@ -388,3 +389,4 @@ while getopts "spzct" option; do
   esac
 done
 ```
+-   First pass for transcription using the *whisper* model [@radford]
