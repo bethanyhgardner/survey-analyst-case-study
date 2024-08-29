@@ -1,0 +1,23 @@
+---
+title: "Survey Data Analysis Case Study"
+author: "Bethany Gardner"
+date: 08/29/2024
+format:
+  revealjs:
+    embed-resources: true
+    footer: bethanyhgardner/survey-analyst-case-study
+    incremental: true
+    slide-number: true
+    theme: white
+    
+---
+
+```{r}
+#| label: setup
+
+library(tidyverse)  # general data wrangling and plots
+library(igraph)  # calculate flowchart positions
+library(RColorBrewer)  # color scheme
+
+theme_blue <- "#5692e4"  # revealjs theme blue
+```
