@@ -5,7 +5,7 @@ date: 08/29/2024
 format:
   revealjs:
     embed-resources: true
-    footer: bethanyhgardner/survey-analyst-case-study
+    footer: github.com/bethanyhgardner/survey-analyst-case-study
     incremental: true
     slide-number: true
     theme: white
@@ -47,4 +47,87 @@ theme_blue <- "#5692e4"  # revealjs theme blue
 -   Do the nametag and introduction conditions affect accuracy producing singular *they*?
 -   If production accuracy is internally reliable, is it predicted by demographics, language attitude, or language experience measures?
 
+## Pipeline overview
 
+```{r}
+#| label: pipeline-data
+
+# calculate data structure for flowchart using this tutorial:
+# https://www.r-bloggers.com/2022/06/creating-flowcharts-with-ggplot2/
+pipeline_start <- tribble(
+  ~from, ~to,
+  "Designing survey questions & speech task", "Sample size determination (R)",
+  "Sample size determination (R)", "Text data (PCIbex)",
+  "Sample size determination (R)", "Audio data (AWS S3)",
+  "Text data (PCIbex)", "Preprocess (R)",
+  "Audio data (AWS S3)", "Transcribe using whisper (Python)",
+  "Transcribe using whisper (Python)", "Check transcriptions",
+  "Preprocess (R)", "Merge data (R)",
+  "Check transcriptions", "Merge data (R)",
+  "Merge data (R)", "Check internal reliability (R)",
+  "Check internal reliability (R)", "Multilevel model (R)"
+)
+
+pipeline_graph <- graph_from_data_frame(pipeline_start, directed = TRUE)
+pipeline_tree <-  layout_as_tree(pipeline_graph)
+
+pipeline_nodes <- pipeline_tree |>
+  as_tibble(.name_repair = "unique") |>
+  rename(y = 1, x = 2) |>
+  mutate(
+    label = vertex_attr(pipeline_graph, "name"),
+    x = x * -1,
+    xmin = x - 0.4,
+    xmax = x + 0.4,
+    ymin = y - 0.2,
+    ymax = y + 0.2
+  ) |>
+  relocate(c(label, x, y), .before = 0) |>
+  mutate(across(
+    starts_with("y"),
+    \(x) ifelse(
+      str_detect(label, "(Merge)|(internal)|(Multilevel)"),
+      x + 0.5, x
+    )
+  )) |>
+  mutate(across(
+    starts_with("x"),
+    \(x) case_when(
+      str_detect(label, "(Merge)|(internal)|(Multilevel)") ~ x + 1,
+      str_detect(label, "(Text)|(Preprocess)") ~ x + 0.5,
+      .default = x
+    )
+  ))
+
+pipeline_edges <- pipeline_start |>
+  mutate(id = row_number()) |>
+  pivot_longer(cols = c("from", "to"), names_to = "s_e", values_to = "label") |>
+  left_join(pipeline_nodes, by = "label") |>
+  mutate(x = ifelse(s_e == "from", xmax, xmin)) |>
+  select(id, s_e, x, y)
+```
+
+```{r}
+#| label: pipeline-plot-1
+#| fig-width: 10
+
+ggplot() +
+  geom_rect(
+    data = pipeline_nodes,
+    aes(xmin = xmin, ymin = ymin, xmax = xmax, ymax = ymax),
+    fill = theme_blue
+  ) +
+  geom_text(
+    data = pipeline_nodes,
+    aes(x = x, y = y, label = str_wrap(label, 10)),
+    size = 4.25
+  ) +
+  geom_path(
+    data = pipeline_edges,
+    aes(x = x, y = y, group = id),
+    linewidth = 1,
+    arrow = arrow(length = unit(0.02, "snpc"), type = "closed")
+  ) +
+  scale_x_continuous(expand = c(0, 0)) +
+  theme_void()
+```
