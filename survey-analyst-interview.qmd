@@ -31,8 +31,7 @@ theme_blue <- "#5692e4"  # revealjs theme blue
 ## About the experiment
 
 -   Studying language learning and processing mechanisms for singular *they*
--   Including pronouns on nametags and in introductions are common recommendations for creating a more gender-inclusive environment. We know it can affect people's perception of
-an environment, but does it also affect people's language *use*?
+-   Including pronouns on nametags and in introductions are common recommendations for creating a more gender-inclusive environment. We know it can affect people's perception of an environment, but does it also affect people's language *use*?
 -   Participants:
     -   Learned about a set of fictional **characters** (he/him, she/her, and they/them)
     -   **Nametag condition:** Varied whether the introductions to the character explicitly stated their pronouns (*This is Alex, who uses they/them pronouns. They...*)
@@ -254,7 +253,7 @@ summary(exp3_pw_m_108)
 
 ## Power analysis
 
-Use {simr} [@green2016] to simulate the power for each effect (Pronoun &times; Nametag/Intro, Pronoun &times; Nametag &times; Intro) at 108, 132, 156, and 180 participants.
+Use {simr} [@green2016] to simulate the power for each effect (Pronoun × Nametag/Intro, Pronoun × Nametag × Intro) at 108, 132, 156, and 180 participants.
 
 ```{r}
 #| label: power-data-simulation
@@ -298,7 +297,7 @@ exp3_pw_results <- bind_rows(
   column_to_rownames(var = "sim")
 ```
 
-## Power analysis 
+## Power analysis
 
 -   We determined that 156 participants, each completing 30 trials, would have 0.93 \[0.91, 0.94\] power at α = .05 to detect the two-way interactions (Pronoun × Nametag/ Introduction).
 -   Note that in cognitive psychology, the goal is have enough statistical power to detect differences between experimental conditions, not necessarily to be able to generalize differences between groups of participants to the entire population.
@@ -310,7 +309,7 @@ exp3_pw_results <- bind_rows(
 #| label: pipeline-plot-2
 #| fig-width: 10
 
-# highlight first section
+# highlight second section
 ggplot() +
   geom_rect(
     data = pipeline_nodes |>
@@ -497,7 +496,7 @@ transcribe_trials()
 ```{r}
 #| label: example-data
 
-read.csv("example_data.csv") |>
+read.csv("example_data/pronouns.csv") |>
   rename_with(~str_replace_all(.x, "_", " ")) |>
   kbl() |>
   kable_styling()
