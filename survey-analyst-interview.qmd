@@ -1445,8 +1445,7 @@ exp3_r_reliability
 ::: incremental
 -   The data is nested within participants and items, so we fit a mixed-effects model with crossed random effects.
 -   Pronoun is coded with Orthogonal Helmert contrasts (1st contrast compares they/them to he/him + she/her; 2nd contrast not relevant here). Nametag and Introduction are mean-center effects coded. Demographic/survey variables are all mean-centered.
--   The maximal model justified by the experimental design:
-`Accuracy ~ Pronoun * Nametag * Intro + (Pronoun | ParticipantID) + (1 | Character)` [@baayen2008; @barr2013].
+-   The maximal model justified by the experimental design: `Accuracy ~ Pronoun * Nametag * Intro + (Pronoun | ParticipantID) + (1 | Character)` [@baayen2008; @barr2013].
 -   The maximal model that converged only included random intercepts.
 -   Stepwise regression to test if adding the demographic, language experience, and language attitude variables significantly improves model fit above the hypothesis-testing model.
 :::
@@ -1488,10 +1487,19 @@ stopCluster(cl6)
 remove(cl6)
 ```
 
-## References
+## Model results
 
-::: {#refs}
+::: incremental
+-   **Intercept**: More likely to produce the correct pronoun than not across all conditions (β = 13.16, z = 12.24, p < .001)
+-   **Pronoun**: More accurate for he/him + she/her characters than for they/them characters (β = 5.05, z = 5.09, p < .001)
+-   **Pronoun &times; Nametag &times; Intro** (β = 6.24, z = 3.91, p < .001)
+    -   --Nametag +Intro condition showed 95% accuracy for singular *they*
+    -   +Nametag +Intro and +Nametag --Intro conditions showed 91% accuracy
+    -   --Nametag --Intro condition showed 73% accuracy
+-   **Gender Beliefs:** Participants who more strongly endorsed the gender binary and gender essentialism were less accurate overall (β = -10.07, z = -3.44, p < .001) and showed a larger relative difference in accuracy between they/them and he/him + she/her (β = 6.50, z = 3.53, p < .001)
 :::
+
+## Bonus Slides: Study Results
 
 ##  {#results-survey data-menu-title="Results: Prior Familiarity & Attitudes"}
 
@@ -1516,3 +1524,8 @@ remove(cl6)
 ##  {#results-gender-beliefs data-menu-title="Results: Gender Beliefs"}
 
 ![](images/fig-exp3-gender-beliefs-1.png){fig-align="center"}
+
+## References
+
+::: {#refs}
+:::
