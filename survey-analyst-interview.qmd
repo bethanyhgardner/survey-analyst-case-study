@@ -6,7 +6,6 @@ format:
   revealjs:
     embed-resources: true
     footer: github.com/bethanyhgardner/survey-analyst-case-study
-    incremental: true
     slide-number: true
     smaller: true
     theme: white
@@ -25,11 +24,14 @@ theme_blue <- "#5692e4"  # revealjs theme blue
 
 ## Why this project?
 
+::: {.incremental}
 -   Using one of my dissertation experiments as a case study (published as [GitHub Repository](https://github.com/bethanyhgardner/dissertation/) and [Quarto Book](https://bethanyhgardner.github.io/dissertation/))
 -   I've chosen to talk about this one because it involves the most data preprocessing/management steps, and I was in charge of all of them
+:::
 
 ## About the experiment
 
+::: {.incremental}
 -   Studying language learning and processing mechanisms for singular *they*
 -   Including pronouns on nametags and in introductions are common recommendations for creating a more gender-inclusive environment. We know it can affect people's perception of an environment, but does it also affect people's language *use*?
 -   Participants:
@@ -38,12 +40,15 @@ theme_blue <- "#5692e4"  # revealjs theme blue
     -   **Introduction condition:** Varied whether the nametags included pronouns
     -   **Speech production task** eliciting possessive pronouns (*Alex gave the apple to their brother.*)
     -   **Survey** about their demographics, experience with singular *they*, and attitudes about singular *they*
+:::
 
 ## About the data
 
+::: {.incremental}
 -   Audio data transcribed and annotated for which pronouns were produced & survey data for each participant
 -   Do the nametag and introduction conditions affect accuracy producing singular *they*?
 -   If production accuracy is internally reliable, is it predicted by demographics, language attitude, or language experience measures?
+:::
 
 ## Pipeline overview
 
@@ -299,9 +304,11 @@ exp3_pw_results <- bind_rows(
 
 ## Power analysis
 
+::: {.incremental}
 -   We determined that 156 participants, each completing 30 trials, would have 0.93 \[0.91, 0.94\] power at α = .05 to detect the two-way interactions (Pronoun × Nametag/ Introduction).
 -   Note that in cognitive psychology, the goal is have enough statistical power to detect differences between experimental conditions, not necessarily to be able to generalize differences between groups of participants to the entire population.
 -   We can get a decently representative sample of respondents from Prolific, but didn't do population weights.
+:::
 
 ## Pipeline overview
 
@@ -340,9 +347,11 @@ ggplot() +
 
 ## Audio data (AWS S3)
 
+::: {.incremental}
 -   PCIbex, our experiment platform, sends the audio data to an AWS S3 bucket
 -   It's most efficient to just download the data from S3 once and run the rest of the analyses locally, instead of querying it from S3 every time
 -   Bash script to download new data; check that an audio file for each trial for each participant exists as expected; then unzip, convert, and sort audio files
+:::
 
 ## Audio data (AWS S3)
 
@@ -389,9 +398,11 @@ done
 
 ## Transcribe using *whisper*
 
+::: {.incremental}
 -   First pass for transcription using the *whisper* model [@radford]
 -   Pros: fairly quick, runs locally and does not get copy of identifiable data
 -   Cons: does not include speech errors and disfluencies
+:::
 
 ## Transcribe using *whisper*
 
@@ -504,7 +515,7 @@ read.csv("example_data/pronouns.csv") |>
 
 ## Check transcriptions
 
--   Tests to check coding against regex and for completion
+Tests to check coding against regex and for completion
 
 ```{r}
 #| label: check-data
@@ -776,13 +787,13 @@ ggplot() +
 
 ## Text data
 
--   Survey data is written in log file format that needs to be parsed to remove irrelevant data, select the participant/condition-level data that I recorded at the beginning, and select the trial-level data that I recorded with each trial
+Survey data is written in log file format that needs to be parsed to remove irrelevant data, select the participant/condition-level data that I recorded at the beginning, and select the trial-level data that I recorded with each trial:
 
 ![](example_data/survey_raw.png)
 
 ## Preprocess
 
--   R code to wrangle survey data
+R code to wrangle survey data:
 
 ```{r}
 #| label: preprocessing
@@ -1205,7 +1216,7 @@ write_csv(d_demographics, "data/exp2_demographics.csv")
 
 ## Preprocess {.scrollable}
 
--   Survey questions parsed
+Survey questions parsed:
 
 ```{r}
 #| label: survey-parsed
@@ -1217,7 +1228,7 @@ read.csv("example_data/survey_parsed.csv") |>
 
 ## Preprocess {.scrollable}
 
--   Survey questions coded into potential covariates
+Survey questions coded into potential covariates:
 
 ```{r}
 #| label: survey-covariates
@@ -1265,8 +1276,12 @@ ggplot() +
 
 ## Merge data
 
+::: incremental
 -   It's easy to merge the participant-level survey data with the trial-level pronoun data by joining in the participant ID
 -   For bigger projects, I write custom functions to load/set up data to ensure that the output is always identical
+:::
+
+## Merge data
 
 ```{r}
 #| label: load-merge-data
@@ -1299,7 +1314,7 @@ exp3_load_data_acc <- function() {
     fct_relevel("HS_T", after = 1)
   contrasts(d$Pronoun) <- cbind(
     "Target" = c(-.66, +.33, +.33),
-    "Dist"     = c(0,    -.50, +.50)
+    "Dist"   = c(0,    -.50, +.50)
   )
 
   # Add dummy-coded factor for They vs He/She
@@ -1308,9 +1323,9 @@ exp3_load_data_acc <- function() {
   # Dummy code Nametag and Intro
   d <- d |> mutate(
     Nametag_Yes0 = ifelse(Nametag == "+Nametag", 0, 1),
-    Nametag_No0  = ifelse(Nametag == "-Nametag", 0, 1),
-    Intro_Yes0   = ifelse(Intro   == "+Intro", 0, 1),
-    Intro_No0    = ifelse(Intro   == "-Intro", 0, 1)
+    Nametag_No0 = ifelse(Nametag == "-Nametag", 0, 1),
+    Intro_Yes0 = ifelse(Intro == "+Intro", 0, 1),
+    Intro_No0 = ifelse(Intro == "-Intro", 0, 1)
   )
 
   # Scale character (1-18)
