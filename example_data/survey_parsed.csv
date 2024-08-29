@@ -1,0 +1,55 @@
+﻿ParticipantID,Condition,List,Category,Item,Response_Num,Response_Bool,Response_Cat
+3_001,both,1,Sentence Naturalness Ratings,"Masc
+Name",1,NA,NA
+3_001,both,1,Sentence Naturalness Ratings,"Fem
+Name",1,NA,NA
+3_001,both,1,Sentence Naturalness Ratings,"Neutral
+Name",1,NA,NA
+3_001,both,1,Sentence Naturalness Ratings,Every,5,NA,NA
+3_001,both,1,Sentence Naturalness Ratings,Generic,1,NA,NA
+3_001,both,1,Sentence Naturalness Ratings,Each,6,NA,NA
+3_001,both,1,Familiarity With They/Them Pronouns,Myself,NA,FALSE,NA
+3_001,both,1,Familiarity With They/Them Pronouns,Close To,NA,FALSE,NA
+3_001,both,1,Familiarity With They/Them Pronouns,Have Met,NA,FALSE,NA
+3_001,both,1,Familiarity With They/Them Pronouns,Heard About,NA,TRUE,NA
+3_001,both,1,Familiarity With They/Them Pronouns,Not Heard About,NA,FALSE,NA
+3_001,both,1,Familiarity With Pronoun-Sharing Practices,Intros: Others,NA,NA,Some
+3_001,both,1,Familiarity With Pronoun-Sharing Practices,Intros: Self,NA,NA,"Never, because I prefer not to"
+3_001,both,1,Familiarity With Pronoun-Sharing Practices,Nametags: Others,NA,NA,Most
+3_001,both,1,Familiarity With Pronoun-Sharing Practices,Nametags: Self,NA,NA,"Never, because I prefer not to"
+3_001,both,1,Transphobia Scale,"I am uncomfortable around people who don't conform to traditional gender roles, e.g., aggressive women or emotional men.",2,NA,NA
+3_001,both,1,Transphobia Scale,I avoid people on the street whose gender is unclear to me.,2,NA,NA
+3_001,both,1,Transphobia Scale,I think there is something wrong with a person who says that they are neither a man nor a woman.,6,NA,NA
+3_001,both,1,Transphobia Scale,I would be upset if someone I'd known a long time revealed to me that they used to be another gender.,5,NA,NA
+3_001,both,1,Transphobia Scale,"When I meet someone, it is important for me to be able to identify them as a man or a woman.",7,NA,NA
+3_001,both,1,Transphobia Scale,I believe that a person can never change their gender.,7,NA,NA
+3_001,both,1,Transphobia Scale,"A person's genitalia define what gender they are, e.g., a penis defines a person as being a man, a vagina defines a person as being a woman.",7,NA,NA
+3_001,both,1,Transphobia Scale,"I don't like it when someone is flirting with me, and I can't tell if they are a man or a woman.",7,NA,NA
+3_001,both,1,Transphobia Scale,I believe that the male/female dichotomy is natural.,7,NA,NA
+3_001,both,1,Age,45-54,53,NA,NA
+3_001,both,1,Gender,Gender,NA,NA,Male
+3_001,both,1,Transgender & Gender-Diverse,My gender is the same as what was written on my original birth certificate,NA,TRUE,NA
+3_001,both,1,Transgender & Gender-Diverse,My gender is different than what was written on my original birth certificate,NA,FALSE,NA
+3_001,both,1,Transgender & Gender-Diverse,I consider myself cisgender,NA,FALSE,NA
+3_001,both,1,Transgender & Gender-Diverse,I consider myself transgender,NA,FALSE,NA
+3_001,both,1,Transgender & Gender-Diverse,I don't consider myself cisgender or transgender,NA,FALSE,NA
+3_001,both,1,Transgender & Gender-Diverse,Prefer not to answer,NA,FALSE,NA
+3_001,both,1,Sexuality,Asexual,NA,FALSE,NA
+3_001,both,1,Sexuality,Bisexual/Pansexual,NA,FALSE,NA
+3_001,both,1,Sexuality,Gay/Lesbian,NA,FALSE,NA
+3_001,both,1,Sexuality,Heterosexual/Straight,NA,TRUE,NA
+3_001,both,1,Sexuality,Queer,NA,FALSE,NA
+3_001,both,1,Sexuality,Questioning,NA,FALSE,NA
+3_001,both,1,Sexuality,Prefer not to answer,NA,FALSE,NA
+3_001,both,1,Sexuality,I use a different term,NA,FALSE,NA
+3_001,both,1,Education,Professional degree,NA,NA,Professional degree
+3_001,both,1,English Experience,Native (learned from birth),NA,NA,Native (learned from birth)
+3_001,both,1,Race/Ethnicity,American Indian or Alaska Native,NA,FALSE,NA
+3_001,both,1,Race/Ethnicity,Asian,NA,FALSE,NA
+3_001,both,1,Race/Ethnicity,"Black, African American, or African",NA,FALSE,NA
+3_001,both,1,Race/Ethnicity,"Hispanic, Latino, or Spanish",NA,FALSE,NA
+3_001,both,1,Race/Ethnicity,Middle Eastern or North African,NA,FALSE,NA
+3_001,both,1,Race/Ethnicity,Native Hawaiian or Pacific Islander,NA,FALSE,NA
+3_001,both,1,Race/Ethnicity,White,NA,TRUE,NA
+3_001,both,1,Race/Ethnicity,Prefer not to answer,NA,FALSE,NA
+3_001,both,1,Race/Ethnicity,I use a different term,NA,FALSE,NA

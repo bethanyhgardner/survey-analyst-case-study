@@ -740,4 +740,492 @@ df3 |>
 write_csv(df3, file = "data/exp2_pronouns.csv")
 ```
 
+## Pipeline overview
+
+```{r}
+#| label: pipeline-plot-3
+#| fig-width: 10
+
+# highlight third section
+ggplot() +
+  geom_rect(
+    data = pipeline_nodes |>
+      mutate(group = case_when(
+        str_starts(label, "Text") ~ "highlight",
+        str_starts(label, "Preprocess") ~ "highlight",
+        .default = "fade"
+      )),
+    aes(xmin = xmin, ymin = ymin, xmax = xmax, ymax = ymax, fill = group)
+  ) +
+  geom_text(
+    data = pipeline_nodes,
+    aes(x = x, y = y, label = str_wrap(label, 10)),
+    size = 4.25
+  ) +
+  geom_path(
+    data = pipeline_edges,
+    aes(x = x, y = y, group = id),
+    linewidth = 1,
+    arrow = arrow(length = unit(0.02, "snpc"), type = "closed")
+  ) +
+  scale_fill_manual(values = c("grey75", theme_blue)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  theme_void() +
+  guides(fill = guide_none())
+```
+
+## Text data
+
+-   Survey data is written in log file format that needs to be parsed to remove irrelevant data, select the participant/condition-level data that I recorded at the beginning, and select the trial-level data that I recorded with each trial
+
+![](example_data/survey_raw.png)
+
+## Preprocess
+
+-   R code to wrangle survey data
+
+```{r}
+#| label: preprocessing
+#| eval: false
+#| echo: true
+
+library(tidyverse)
+library(janitor)
+library(readxl)
+
+# MAIN DF----
+## Read PCIbex output----
+d_survey <- list.files(path = "data/exp2_PCIbex/", full.names = TRUE) |>
+  map_df(
+    ~read.csv(., header = FALSE, fill = TRUE, col.names = paste("V", 1:26))
+  ) |>
+  filter(str_detect(V.1, "#") == FALSE) |>  # drop PennController comments
+  select(V.13, V.6, V.9, V.15, V.10, V.11) |>  # drop PennController extra cols
+  rename(  # name PennController output columns
+    trial_type  = V.6,  # trial label in PCIbex
+    trial_part  = V.9,  # type of trial data
+    parameter   = V.10,
+    response    = V.11,
+    prolific_id = V.13,  # first trial variable saved is prolific_id
+    trial_item  = V.15
+  ) |>
+  filter(str_detect(  # get demographics and familiarity questions
+    trial_type, "demographics|sentences|they|transphobia"
+  )) |>
+  # Remove status update rows for them
+  filter(parameter != "_Header_" & parameter != "_Trial_") |>
+  filter(parameter != "First" & parameter != "Unselect") |>
+  filter(parameter != "Status" & parameter != "Filename") |>
+  filter(!(
+    # remove rows that indicate last item selected in check box
+    parameter == "Choice" &
+      (
+        trial_part == "enter_they" | trial_part == "enter_trans" |
+          trial_part == "enter_sexuality" | trial_part == "enter_race"
+      )
+  )) |>
+  filter(!(parameter == "Final" & response == ""))  # write-in box empty
+
+
+## Match to Participant ID----
+participant_list <- "data/participant_list.xlsx" |>
+  read_xlsx(sheet = 1, range = cell_cols(1:10)) |>
+  clean_names() |>
+  select(ends_with("id"), condition) |>
+  filter(!is.na(participant_id)) |>
+  mutate(across(everything(), as.factor))
+
+d_survey <- d_survey |>
+  left_join(participant_list, by = "prolific_id") |>
+  relocate(participant_id, .before = 1) |>
+  select(-prolific_id, -condition)
+
+## Exclusions----
+d_survey <- d_survey |> filter(str_detect(participant_id, "P")) |> droplevels()
+
+
+## Question categories & items----
+d_survey <- d_survey |>
+  mutate(
+    .after = participant_id,
+    category =
+      case_when(
+        trial_type == "rate_sentences" ~ "Sentence Naturalness Ratings",
+        trial_type == "transphobia_scale" ~ "Transphobia Scale",
+        trial_part == "enter_they" ~ "Familiarity With They/Them Pronouns",
+        str_detect(trial_part, "intro|nametag") ~
+          "Familiarity With Pronoun-Sharing Practices",
+        str_detect(trial_part, "age") ~ "Age",
+        str_detect(trial_part, "gender") ~ "Gender",
+        str_detect(trial_part, "trans") ~ "Transgender & Gender-Diverse",
+        str_detect(trial_part, "sexuality") ~ "Sexuality",
+        str_detect(trial_part, "race") ~ "Race/Ethnicity",
+        str_detect(trial_part, "english") ~ "English Experience",
+        str_detect(trial_part, "ed") ~ "Education"
+      ) |>
+      as.factor(),
+    item =
+      case_when(
+        trial_part == "enter_intro_others" ~ "Intros: Others",
+        trial_part == "enter_intro_self" ~ "Intros: Self",
+        trial_part == "enter_nametags_others" ~ "Nametags: Others",
+        trial_part == "enter_nametags_self" ~ "Nametags: Self",
+        str_detect(parameter, "for myself") ~ "Myself",
+        str_detect(parameter, "am close to") ~ "Close To",
+        str_detect(parameter, "have met") ~ "Have Met",
+        str_detect(parameter, "have not met")  ~ "Heard About",
+        str_detect(parameter, "had not heard") ~ "Not Heard About",
+        trial_item != "" ~ trial_item,
+        str_detect(category, "Trans|Sexuality|Race") ~ parameter,
+        str_detect(category, "Ed|Eng") ~ response,
+        str_detect(category, "Gender") ~ category
+      ) |>
+      recode_factor(
+        "generic" = "Generic",
+        "each" = "Each",
+        "every" = "Every",
+        "neu" = "Neutral\nName",
+        "fem" = "Fem\nName",
+        "masc" = "Masc\nName"
+      ) |>
+      str_replace_all(c(
+        "%2C" = ",", "2 year" = "2-year", "4 year" = "4-year", "term:" = "term"
+      )) |>
+      as.factor()
+  ) |>
+  select(-starts_with("trial"), -parameter)
+
+
+## Response types----
+d_survey$response <- d_survey$response |>
+  str_replace_all(c("%2C" = ",", "2 year" = "2-year", "4 year" = "4-year"))
+
+d_survey <- d_survey |>
+  mutate(
+    response_num = case_when(
+      !is.na(as.numeric(response)) ~ as.numeric(response),
+      is.na(as.numeric(response)) ~ NA
+    ),
+    response_bool = case_when(
+      response == "checked" ~ TRUE,
+      response == "unchecked" ~ FALSE,
+      response != "checked" & response != "unchecked" ~ NA
+    ),
+    response_cat = case_when(
+      is.na(response_num) & is.na(response_bool) ~ response,
+      .default = NA
+    ),
+    item = case_when(
+      !is.na(item) ~ item,
+      category == "Age" & response_num <= 24 ~ "18–24",
+      category == "Age" & response_num >= 25 & response_num <= 34 ~ "25–34",
+      category == "Age" & response_num >= 35 & response_num <= 44 ~ "35–44",
+      category == "Age" & response_num >= 45 & response_num <= 54 ~ "45–54",
+      category == "Age" & response_num >= 55 & response_num <= 64 ~ "55–64",
+      category == "Age" & response_num >= 65 & response_num <= 74 ~ "65–74",
+      response_num >= 75 ~ "75+"
+    )
+  ) |>
+  mutate(across(where(is.character), as.factor)) |>
+  select(-response) |>
+  filter(!is.na(item))
+
+
+## Recode gender----
+d_survey |>
+  filter(category == "Gender") |>
+  pull(response_cat) |>
+  droplevels() |>
+  unique()
+
+# Group similar responses
+d_survey$response_cat <- d_survey$response_cat |>
+  recode_factor(
+    "female" = "Woman", "f" = "Woman", "Femal" = "Woman", "Female" = "Woman",
+    "FEMALE" = "Woman", "woman" = "Woman", "WOMAN" = "Woman", "Female " = "Woman",
+    "female/woman" = "Woman", "Female/Woman" = "Woman", "cis woman" = "Woman",
+    "Cisfemale" = "Woman", "cisgender woman" = "Woman", "transwoman" = "Woman",
+    "male" = "Man", "MALE" = "Man", "Male" = "Man", "Male " = "Man", "Man" = "Man",
+    "cis-gender male" = "Man", "cis male" = "Man", "TRANS MAN" = "Man",
+    "Transgender Man" = "Man", "Nonbinary" = "Nonbinary spectrum",
+    "nonbinary" = "Nonbinary spectrum", "Non-binary" = "Nonbinary spectrum",
+    "non binary" = "Nonbinary spectrum", "Transfem nonbinary" = "Nonbinary spectrum",
+    "Male and nonbinary" = "Nonbinary spectrum", "she/they" = "Nonbinary spectrum",
+    "genderfluid" = "Nonbinary spectrum", "Genderfluid" = "Nonbinary spectrum",
+    "questioning" = "Questioning"
+  )
+
+d_survey |>
+  filter(category == "Gender") |>
+  pull(response_cat) |>
+  droplevels() |>
+  unique()
+
+
+## Write-in responses----
+d_survey$item <- d_survey$item |>
+  recode_factor("Final" = "I use a different term")
+
+# Just keep one row for yes to diff term + write-in box
+d_survey <- d_survey |>
+  mutate(
+    response_bool = case_when(
+      item == "I use a different term" & !is.na(response_cat) ~ TRUE,
+      .default = response_bool
+    )
+  ) |>
+  filter(
+    !(item == "I use a different term" & is.na(response_cat) & response_bool == TRUE)
+  ) |>
+  filter(response_cat != "Normal" | is.na(response_cat))  # asshole response that also checked straight
+
+
+## Add missing data----
+missing <- tibble(
+  participant_id = c(
+    rep("P277", 31), rep("P278", 31), rep("P419", 31),
+    rep("P482", 31), rep("P502", 31)
+  ),
+  category = rep(
+    c(
+      "Age", "Education", "English Experience",
+      rep("Familiarity With Pronoun-Sharing Practices", 4),
+      rep("Familiarity With They/Them Pronouns", 5),
+      "Gender", "Race/Ethnicity", "Sexuality",
+      rep("Sentence Naturalness Ratings", 6),
+      "Transgender & Gender-Diverse",
+      rep("Transphobia Scale", 9)
+    ),
+    5
+  ),
+  item = rep(
+    c(
+      rep("Missing Data", 3),
+      "Intros: Others", "Intros: Self", "Nametags: Others", "Nametags: Self",
+      "Myself", "Close To", "Have Met", "Heard About", "Not Heard About",
+      "Missing Data", "Missing Data", "Missing Data",
+      "Masc Name", "Fem Name", "Neutral Name", "Generic", "Every", "Each",
+      "Missing Data",
+      paste(
+        "I am uncomfortable around people who don’t conform to traditional",
+        "gender roles, e.g., aggressive women or emotional men."
+      ),
+      "I avoid people on the street whose gender is unclear to me.",
+      paste(
+        "I think there is something wrong with a person who says that they",
+        "are neither a man nor a woman."
+      ),
+      paste(
+        "I would be upset if someone I’d known a long time revealed to me",
+        "that they used to be another gender."
+      ),
+      paste(
+        "When I meet someone, it is important for me to be able to identify",
+        "them as a man or a woman."
+      ),
+      "I believe that a person can never change their gender.",
+      paste(
+        "A person’s genitalia define what gender they are, e.g., a penis",
+        "defines a person as being a man, a vagina defines a person as being a",
+        "woman."
+      ),
+      paste(
+        "I don’t like it when someone is flirting with me, and I can’t tell",
+        "if they are a man or a woman."
+      ),
+      "I believe that the male/female dichotomy is natural."
+    ),
+    5
+  )
+)
+
+missing <- missing |>
+  mutate(
+    response_num = as.numeric(NA),
+    response_bool = NA,
+    response_cat = as.character(NA)
+  ) |>
+  mutate(across(where(is.character), as.factor))
+
+d_survey <- bind_rows(d_survey, missing) |>
+  distinct() |>
+  mutate(participant_id = as.factor(as.character(participant_id)))
+
+
+# Aggregates----
+## Age----
+agg_age <- d_survey |>
+  filter(category == "Age") |>
+  select(participant_id, response_num) |>
+  arrange(participant_id) |>
+  rename(age = response_num)
+
+
+## TGD----
+agg_TGD <- d_survey |>
+  filter(
+    category == "Transgender & Gender-Diverse" & response_bool == TRUE
+  ) |>
+  select(participant_id, item, response_bool) |>
+  mutate(
+    response_coded = case_when(
+      str_detect(item, "is different") ~ 1,
+      item == "I consider myself transgender" ~ 1,
+      .default = 0
+    )
+  ) |>
+  summarise(
+    .by = participant_id,
+    TGD = sum(response_coded) |> recode(`2` = 1)
+  )
+
+
+## LGBQ----
+agg_LGBQ <- d_survey |>
+  filter(category == "Sexuality" & response_bool == TRUE) |>
+  select(participant_id, item, response_bool) |>
+  mutate(response_coded = ifelse(str_detect(item, "As|Bi|Gay|Queer"), 1, 0)) |>
+  summarise(
+    .by = participant_id,
+    LGBQ = sum(response_coded) |> recode(`2` = 1, `3` = 1)
+  )
+
+
+## Transphobia scale----
+agg_TS <- d_survey |>
+  filter(category == "Transphobia Scale") |>
+  select(participant_id, response_num) |>
+  mutate(response_coded = response_num - 1) |>
+  summarise(.by = participant_id, gender_beliefs = sum(response_coded))
+
+
+## Sentence ratings----
+agg_ratings <- d_survey |>
+  filter(category == "Sentence Naturalness Ratings") |>
+  select(participant_id, item, response_num) |>
+  mutate(
+    type = ifelse(
+      str_detect(item, "Name"), "rating_name", "rating_indefinite"
+    )
+  ) |>
+  summarise(.by = c(participant_id, type), rating = mean(response_num)) |>
+  pivot_wider(names_from = "type", values_from = "rating")
+
+
+## Familiarity with using they/them----
+agg_they <- d_survey |>
+  filter(str_detect(category, "They/Them") & response_bool == TRUE) |>
+  select(participant_id, item, response_bool) |>
+  pivot_wider(names_from = item, values_from = response_bool) |>
+  mutate(Myself_Close = ifelse(
+    Myself == TRUE & `Close To` == TRUE, TRUE, NA
+  )) |>
+  mutate(
+    .keep = c("unused"),
+    familiarity = case_when(
+      Myself_Close == TRUE | `Close To` == TRUE | Myself == TRUE ~ 3,
+      `Have Met` == TRUE ~ 2,
+      `Heard About` == TRUE | `Not Heard About` == TRUE ~ 1
+    )
+  )
+
+
+## Familiarity with pronoun-sharing----
+agg_sharing <- d_survey |>
+  filter(str_detect(category, "Sharing")) |>
+  select(participant_id, item, response_cat) |>
+  mutate(response_coded = case_when(
+    response_cat == "Always"    | response_cat == "All"   ~ 5,
+    response_cat == "Usually"   | response_cat == "Most"  ~ 4,
+    response_cat == "Sometimes" | response_cat == "Some"  ~ 3,
+    response_cat == "Rarely"    | response_cat == "A few" ~ 2,
+    str_detect(response_cat, "prefer not to") ~ 1,
+    str_detect(response_cat, "not heard") ~ 0,
+    response_cat == "None"                        ~ 0
+  )) |>
+  summarise(.by = participant_id, sharing = sum(response_coded))
+
+
+## Merge---
+d_agg <- participant_list |>
+  select(participant_id, condition) |>
+  left_join(agg_age, by = "participant_id") |>
+  left_join(agg_LGBQ, by = "participant_id") |>
+  left_join(agg_TGD, by = "participant_id") |>
+  left_join(agg_ratings, by = "participant_id") |>
+  left_join(agg_sharing, by = "participant_id") |>
+  left_join(agg_they, by = "participant_id") |>
+  left_join(agg_TS, by = "participant_id")
+
+
+# Demographics table----
+d_demographics <- d_survey |>
+  filter(
+    category %in% c(
+      "Age", "Gender", "Transgender & Gender-Diverse", "Sexuality",
+      "Race/Ethnicity", "Education", "English Experience"
+    )
+  ) |>
+  filter(response_bool == TRUE | is.na(response_bool)) |>
+  mutate(group = case_when(
+    category == "Gender" ~ as.character(response_cat),
+    category == "English Experience" ~ as.character(response_cat),
+    category == "Education" ~ as.character(response_cat),
+    category == "Sexuality" ~ as.character(item),
+    category == "Race/Ethnicity" ~ as.character(item),
+    category == "Transgender & Gender-Diverse" ~ as.character(item),
+    category == "Age" ~ as.character(item)
+  )) |>
+  select(-(starts_with("response")), -item) |>
+  mutate(group = group |>
+    replace_na("Prefer not to answer / Missing data") |>
+    recode_factor(
+      "Prefer not to answer" = "Prefer not to answer / Missing data",
+      "prefer not to answer" = "Prefer not to answer / Missing data",
+      "Missing Data" = "Prefer not to answer / Missing data"
+    )
+  ) |>
+  summarise(.by = c(category, group), total = n_distinct(participant_id))
+
+dem_totals <- d_demographics |>
+  group_by() |>
+  summarise(.by = category, total = sum(total)) |>
+  mutate(group = "Total")
+
+d_demographics <- d_demographics |>
+  bind_rows(dem_totals) |>
+  arrange(category, group)
+
+
+# # Export----
+write_csv(d_survey, "data/exp2_survey.csv")
+write_csv(d_agg, "data/exp2_participant_covariates.csv")
+write_csv(d_demographics, "data/exp2_demographics.csv")
+```
+
+## Preprocess {.scrollable}
+
+-   Survey questions parsed
+
+```{r}
+#| label: survey-parsed
+
+read.csv("example_data/survey_parsed.csv") |>
+  kbl() |>
+  kable_styling()
+```
+
+## Preprocess {.scrollable}
+
+-   Survey questions coded into potential covariates
+
+```{r}
+#| label: survey-covariates
+
+read.csv("example_data/participant_covariates.csv") |>
+  head(8) |>
+  kbl() |>
+  kable_styling()
+```
+
 ## References
